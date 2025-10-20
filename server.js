@@ -475,21 +475,48 @@ app.get('/api/admin/reviews', (req, res) => {
     console.log('[ADMIN] forbidden: requester is not admin');
     return res.status(403).json({ error: 'forbidden' });
   }
-  const raw = readJson(REVIEWS_FILE) || {};
-  // produce a processed copy where author is set to poster_email localpart for admin visibility
-  const processed = {};
-  Object.keys(raw).forEach(slug => {
-    processed[slug] = (raw[slug] || []).map(r => {
-      const copy = Object.assign({}, r);
-      if (copy.poster_email){ try{ copy.author = String(copy.poster_email).split('@')[0]; }catch(e){} }
-      // process replies
-      if (Array.isArray(copy.replies)){
-        copy.replies = copy.replies.map(rep => { const rc = Object.assign({}, rep); if (rc.poster_email){ try{ rc.author = String(rc.poster_email).split('@')[0]; }catch(e){} } return rc; });
+  try{
+    let grouped = {};
+    if (reviewsStore && typeof reviewsStore.getAllReviewsAdmin === 'function'){
+      grouped = reviewsStore.getAllReviewsAdmin();
+      if (grouped && typeof grouped.then === 'function'){
+        return grouped.then(all => {
+          const processed = {};
+          Object.keys(all || {}).forEach(slug => {
+            processed[slug] = (all[slug] || []).map(r => {
+              const copy = Object.assign({}, r);
+              if (copy.poster_email){ try{ copy.author = String(copy.poster_email).split('@')[0]; }catch(e){} }
+              if (Array.isArray(copy.replies)){
+                copy.replies = copy.replies.map(rep => { const rc = Object.assign({}, rep); if (rc.poster_email){ try{ rc.author = String(rc.poster_email).split('@')[0]; }catch(e){} } return rc; });
+              }
+              return copy;
+            });
+          });
+          return res.json({ total: Object.keys(processed).reduce((acc,k)=>acc + (Array.isArray(processed[k])? processed[k].length:0), 0), results: processed });
+        }).catch(err => {
+          console.error('[ADMIN] list error', err && err.message ? err.message : err);
+          return res.status(500).json({ error: 'server_error' });
+        });
       }
-      return copy;
+    }
+    // fallback: JSON file
+    const raw = readJson(REVIEWS_FILE) || {};
+    const processed = {};
+    Object.keys(raw).forEach(slug => {
+      processed[slug] = (raw[slug] || []).map(r => {
+        const copy = Object.assign({}, r);
+        if (copy.poster_email){ try{ copy.author = String(copy.poster_email).split('@')[0]; }catch(e){} }
+        if (Array.isArray(copy.replies)){
+          copy.replies = copy.replies.map(rep => { const rc = Object.assign({}, rep); if (rc.poster_email){ try{ rc.author = String(rc.poster_email).split('@')[0]; }catch(e){} } return rc; });
+        }
+        return copy;
+      });
     });
-  });
-  res.json({ total: Object.keys(processed).reduce((acc,k)=>acc + (Array.isArray(processed[k])? processed[k].length:0), 0), results: processed });
+    return res.json({ total: Object.keys(processed).reduce((acc,k)=>acc + (Array.isArray(processed[k])? processed[k].length:0), 0), results: processed });
+  }catch(e){
+    console.error('[ADMIN] list fatal', e && e.message ? e.message : e);
+    return res.status(500).json({ error: 'server_error' });
+  }
 });
 
 // Serve course detail page for clean URLs: /courses/:slug
