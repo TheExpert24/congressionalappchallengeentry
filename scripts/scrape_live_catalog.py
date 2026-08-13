@@ -34,6 +34,8 @@ async def extract_course_from_page(page, url):
 
     try:
         body_text = await page.locator("body").inner_text()
+        #print("\nPage Text")
+        #print(body_text)
     except Exception:
         body_text = ""
 
@@ -69,6 +71,17 @@ async def extract_course_from_page(page, url):
 
                     if value:
                         return value
+
+                if normalized_line.startswith(label + " "):
+                    value = re.sub(
+                        r"^" + re.escape(label) + r"\s+",
+                        "",
+                        normalized_line,
+                        flags=re.IGNORECASE
+                    ).strip()
+
+                    if value:
+                        return line[len(line) - len(value):].strip()
 
         return ""
 
