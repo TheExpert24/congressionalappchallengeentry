@@ -1,137 +1,523 @@
 #!/usr/bin/env python3
-"""
-scrape_live_catalog.py
 
-Scrape the live OHS course catalog (public) using Playwright to render pages.
-Extract fields: code, name, description, subject, level, semester, slug, source_url.
-
-Usage (PowerShell):
-  python scripts/scrape_live_catalog.py --output live_courses.json
-
-Requirements:
-  pip install playwright
-  playwright install
-
-Be polite: the script waits between requests.
-"""
-import asyncio, json, re, argparse, time, random
+import asyncio
+import json
+import re
+import argparse
+from urllib.parse import urlparse, urljoin
 from playwright.async_api import async_playwright
-from urllib.parse import urljoin
 
 
 async def extract_course_from_page(page, url):
-    """Extract fields from a rendered course page.
-    Returns a dict with the requested fields.
-    """
-    # title
-    name = ''
-    try:
-        name = (await page.locator('h1.article__title, h1').first.inner_text()).strip()
-    except Exception:
-        name = ''
+    data = {
+        "source_url": url,
+        "name": "",
+        "description": "",
+        "organization": "",
+        "type": "",
+        "categories": [],
+        "location": "",
+        "cost": "",
+        "deadline": "",
+        "eligibility": "",
+        "age": "",
+        "grade": "",
+        "official_url": ""
+    }
 
-    # code
-    code = ''
     try:
-        code = (await page.locator('.field--name-field-course-number .field__item, .field--name-field-course-number').first.inner_text()).strip()
+        data["name"] = (
+            await page.locator("h1").first.inner_text()
+        ).strip()
     except Exception:
-        # fallback: look for 2-6 char code in page text
-        try:
-            txt = await page.text_content()
-            m = re.search(r"\b([A-Z]{1,4}\d{1,4}[A-Za-z]?)\b", txt or '')
-            if m:
-                code = m.group(1)
-        except Exception:
-            code = ''
+        pass
 
-    # description
-    desc = ''
-    for sel in ['.article__body .field__item', '.field--name-body .field__item', 'meta[name=description]']:
+    try:
+        body_text = await page.locator("body").inner_text()
+    except Exception:
+        body_text = ""
+
+    lines = [
+        line.strip()
+        for line in body_text.splitlines()
+        if line.strip()
+    ]
+
+    def find_after_label(labels):
+        for i, line in enumerate(lines):
+            lower = line.lower()
+
+            for label in labels:
+                label_lower = label.lower()
+
+                if lower == label_lower:
+                    if i + 1 < len(lines):
+                        return lines[i + 1]
+
+                if lower.startswith(label_lower + ":"):
+                    return line.split(":", 1)[1].strip()
+
+        return ""
+
+    data["description"] = ""
+
+    try:
+        quick_answer = await page.locator("text=Quick Answer").first
+
+        if await quick_answer.count():
+            text = await quick_answer.evaluate("""
+                element => {
+                    let result = [];
+                    let current = element.parentElement;
+
+                    if (!current) return "";
+
+                    let nodes = current.querySelectorAll("*");
+
+                    for (const node of nodes) {
+                        const text = node.innerText?.trim();
+
+                        if (
+                            text &&
+                            text !== "Quick Answer" &&
+                            text.length > 40
+                        ) {
+                            result.push(text);
+                        }
+                    }
+
+                    return result.join(" ");
+                }
+            """)
+
+            text = re.sub(r"\\s+", " ", text).strip()
+
+            if text:
+                data["description"] = text
+
+    except Exception:
+        pass
+
+    if not data["description"]:
         try:
-            if sel.startswith('meta'):
-                el = await page.locator(sel).first.get_attribute('content')
-                if el and len(el.strip())>10:
-                    desc = el.strip(); break
-            else:
-                el = await page.locator(sel).first.inner_text()
-                if el and len(el.strip())>10:
-                    desc = el.strip(); break
+            paragraphs = await page.locator("p").all_inner_texts()
+
+            paragraphs = [
+                re.sub(r"\\s+", " ", p).strip()
+                for p in paragraphs
+                if len(p.strip()) >= 40
+            ]
+
+            for paragraph in paragraphs:
+                lower = paragraph.lower()
+
+                if (
+                    "program overview" not in lower
+                    and "key facts" not in lower
+                    and "frequently asked questions" not in lower
+                ):
+                    data["description"] = paragraph
+                    break
+
         except Exception:
+            pass
+
+    if not data["description"]:
+        try:
+            meta = await page.locator(
+                'meta[name="description"]'
+            ).first.get_attribute("content")
+
+            if meta:
+                data["description"] = meta.strip()
+
+        except Exception:
+            pass
+
+    if not data["description"]:
+        try:
+            meta = await page.locator(
+                'meta[name="description"]'
+            ).first.get_attribute("content")
+
+            if meta:
+                data["description"] = meta.strip()
+        except Exception:
+            pass
+
+    data["organization"] = find_after_label([
+        "Organization",
+        "Organizer",
+        "Provider",
+        "Offered by"
+    ])
+
+    data["location"] = find_after_label([
+        "Location",
+        "Where"
+    ])
+
+    data["cost"] = find_after_label([
+        "Cost",
+        "Price",
+        "Fee"
+    ])
+
+    data["deadline"] = find_after_label([
+        "Deadline",
+        "Application Deadline"
+    ])
+
+    data["eligibility"] = find_after_label([
+        "Eligibility",
+        "Requirements"
+    ])
+
+    data["age"] = find_after_label([
+        "Age",
+        "Ages",
+        "Age Range"
+    ])
+
+    data["grade"] = find_after_label([
+        "Grade",
+        "Grades",
+        "Grade Level"
+    ])
+
+    data["type"] = find_after_label([
+        "Type",
+        "Category"
+    ])
+
+    known_categories = [
+        "Computer Science",
+        "STEM",
+        "Competition",
+        "Internship",
+        "Research Program",
+        "Summer Camp",
+        "Pre-College",
+        "Scholarship",
+        "Community Service",
+        "Mathematics",
+        "Biology",
+        "Engineering",
+        "Robotics",
+        "Physics",
+        "Chemistry",
+        "Medicine",
+        "Business",
+        "Economics",
+        "Entrepreneurship",
+        "Debate",
+        "Writing",
+        "Journalism",
+        "Art",
+        "Music",
+        "Film",
+        "Politics",
+        "Law",
+        "Psychology",
+        "Environment"
+    ]
+
+    for line in lines:
+        normalized = line.strip().lower()
+
+        for category in known_categories:
+            if normalized == category.lower():
+                if category not in data["categories"]:
+                    data["categories"].append(category)
+
+    try:
+        links = await page.locator("a").evaluate_all("""
+            elements => elements.map(a => ({
+                text: (a.innerText || '').trim(),
+                href: a.href
+            }))
+        """)
+
+        external_links = []
+
+        for link in links:
+            href = link.get("href", "")
+            text = link.get("text", "").lower()
+
+            if not href:
+                continue
+
+            parsed = urlparse(href)
+
+            if parsed.netloc.lower().endswith(
+                "extracurricularhub.com"
+            ):
+                continue
+
+            external_links.append({
+                "href": href,
+                "text": text
+            })
+
+        priority_words = [
+            "official website",
+            "official site",
+            "visit website",
+            "apply",
+            "application",
+            "learn more",
+            "website"
+        ]
+
+        for word in priority_words:
+            for link in external_links:
+                if word in link["text"]:
+                    data["official_url"] = link["href"]
+                    break
+
+            if data["official_url"]:
+                break
+
+    except Exception:
+        pass
+
+    data["slug"] = re.sub(
+        r"[^a-z0-9]+",
+        "-",
+        data["name"].lower()
+    ).strip("-")
+
+    return data
+
+
+def is_opportunity_url(url):
+    try:
+        parsed = urlparse(url)
+
+        if parsed.netloc.lower() != "extracurricularhub.com":
+            return False
+
+        path = parsed.path.rstrip("/")
+
+        if not path.startswith(
+            "/extracurriculars/"
+        ):
+            return False
+
+        if parsed.query:
+            return False
+
+        slug = path.split(
+            "/extracurriculars/",
+            1
+        )[1].strip("/")
+
+        if not slug:
+            return False
+
+        if "/" in slug:
+            return False
+
+        excluded = {
+            "computer-science",
+            "mathematics",
+            "biology",
+            "engineering",
+            "robotics",
+            "physics",
+            "chemistry",
+            "medicine",
+            "business",
+            "economics",
+            "entrepreneurship",
+            "debate",
+            "writing",
+            "journalism",
+            "art",
+            "music",
+            "film",
+            "politics",
+            "law",
+            "psychology",
+            "environment",
+            "competitions",
+            "internships",
+            "research",
+            "scholarships",
+            "summer-programs",
+            "volunteering",
+            "stem"
+        }
+
+        return slug.lower() not in excluded
+
+    except Exception:
+        return False
+
+
+async def discover_opportunity_urls(
+    context,
+    url,
+    timeout
+):
+    discovered = set()
+    visited = set()
+    queue = [url]
+
+    while queue:
+
+        current_url = queue.pop(0)
+
+        if current_url in visited:
             continue
 
-    # subject, level, semester
-    subject = ''
-    level = ''
-    semester = ''
-    try:
-        subject = (await page.locator('.field--name-field-subject-ref .field__item, .field--name-field-subject-ref').first.inner_text()).strip()
-    except Exception:
-        subject = ''
-    try:
-        level = (await page.locator('.field--name-field-level-ref .field__item, .field--name-field-level-ref').first.inner_text()).strip()
-    except Exception:
-        level = ''
-    try:
-        semester = (await page.locator('.field--name-field-semester-ref .field__item, .field--name-field-semester-ref').first.inner_text()).strip()
-    except Exception:
-        semester = ''
+        visited.add(current_url)
 
-    # prerequisites: look for headings containing prerequisite and then capture next paragraph or list
-    prerequisites = []
-    try:
-        # search for elements that contain the word "Prereq" or "Prerequisite"
-        possible = await page.locator("xpath=//*[self::h1 or self::h2 or self::h3 or self::h4 or self::strong or self::b][contains(translate(normalize-space(.),'PREREQUISITES','prerequisites'),'prerequisites')]").all()
-        if not possible:
-            possible = await page.locator("xpath=//*[contains(translate(normalize-space(.),'PREREQUISITE','prerequisite'), 'prerequisite')]").all()
-        if possible:
-            # for the first match, try to get the following sibling paragraph or list
-            el = possible[0]
-            # try next sibling paragraph
+        page = await context.new_page()
+
+        try:
+            print("Visiting discovery page:", current_url)
+
+            await page.goto(
+                current_url,
+                timeout=timeout,
+                wait_until="domcontentloaded"
+            )
+
+            await page.wait_for_timeout(1500)
+
+            links = await page.locator("a").evaluate_all("""
+                elements => elements.map(a => ({
+                    text: (a.innerText || '').trim(),
+                    href: a.href
+                }))
+            """)
+
+            for link in links:
+                href = link.get("href", "")
+                text = link.get("text", "").strip().lower()
+
+                if not href:
+                    continue
+
+                parsed = urlparse(href)
+
+                if parsed.netloc.lower() != "extracurricularhub.com":
+                    continue
+
+                if is_opportunity_url(href):
+                    if href not in discovered:
+                        discovered.add(href)
+
+                        print(
+                            "Found opportunity:",
+                            href
+                        )
+
+                path = parsed.path.rstrip("/")
+
+                if (
+                    path.startswith(
+                        "/extracurriculars"
+                    )
+                    and (
+                        text in {
+                            "next",
+                            "next page",
+                            "›",
+                            "→"
+                        }
+                        or "page=" in parsed.query
+                    )
+                ):
+                    normalized = href.split("#")[0]
+
+                    if normalized not in visited:
+                        queue.append(normalized)
+
+            next_candidates = []
+
+            for link in links:
+                href = link.get("href", "")
+                text = link.get("text", "").strip().lower()
+
+                if not href:
+                    continue
+
+                if text in {
+                    "next",
+                    "next page",
+                    "›",
+                    "→"
+                }:
+                    next_candidates.append(href)
+
+            for href in next_candidates:
+                if href not in visited:
+                    queue.append(href)
+
+        except Exception as e:
+            print(
+                "Error discovering:",
+                current_url,
+                e
+            )
+
+        finally:
             try:
-                sib = await el.evaluate_handle('e => {let n=e.nextElementSibling; return n ? n.outerHTML : null}')
-                if sib:
-                    txt = await (await sib.get_property('textContent')).json_value()
-                    if txt and txt.strip():
-                        prerequisites = [s.strip() for s in re.split(r'[;,]\s*|\n', txt.strip()) if s.strip()]
+                await page.close()
             except Exception:
                 pass
-    except Exception:
-        prerequisites = []
 
-    slug = (code or name).lower()
-    slug = re.sub(r'[^a-z0-9]+', '-', slug).strip('-')
-
-    return {
-        'source_url': url,
-        'code': code,
-        'name': name,
-        'description': desc,
-        'subject': subject,
-        'level': level,
-        'semester': semester,
-        'prerequisites': prerequisites,
-        'slug': slug,
-    }
+    return discovered
 
 
 async def load_links(path):
-    with open(path, 'r', encoding='utf8') as f:
-        lines = [l.strip() for l in f if l.strip()]
-    # dedupe and return
+    with open(
+        path,
+        "r",
+        encoding="utf8"
+    ) as f:
+        lines = [
+            l.strip()
+            for l in f
+            if l.strip()
+        ]
+
     seen = []
-    for l in lines:
-        if l not in seen:
-            seen.append(l)
+    seen_set = set()
+
+    for line in lines:
+        if line not in seen_set:
+            seen.append(line)
+            seen_set.add(line)
+
     return seen
 
 
-async def fetch_worker(context, url, out_path, timeout, semaphore, combined_json_path=None, lock=None, flush_every=1, counter=None):
+async def fetch_worker(
+    context,
+    url,
+    out_path,
+    timeout,
+    semaphore,
+    combined_json_path=None,
+    lock=None,
+    flush_every=1,
+    counter=None
+):
     async with semaphore:
+
         page = await context.new_page()
-        # speedup: block images/fonts/styles/media to reduce page load time
-        async def _route_handler(route, request):
+
+        async def route_handler(route, request):
             try:
-                if request.resource_type in ("image", "media", "font", "stylesheet"):
+                if request.resource_type in (
+                    "image",
+                    "media",
+                    "font",
+                    "stylesheet"
+                ):
                     await route.abort()
                 else:
                     await route.continue_()
@@ -142,126 +528,371 @@ async def fetch_worker(context, url, out_path, timeout, semaphore, combined_json
                     pass
 
         try:
-            await page.route("**/*", _route_handler)
-        except Exception:
-            # routing may fail in some environments; ignore
-            pass
-        # set navigation and default timeouts
-        try:
-            page.set_default_navigation_timeout(timeout)
-            page.set_default_timeout(10000)
+            await page.route(
+                "**/*",
+                route_handler
+            )
         except Exception:
             pass
-        rec = None
+
         try:
-            print('Visiting', url)
-            await page.goto(url, timeout=timeout)
-            # wait for a key element, but not too long
-            try:
-                # wait just for DOM content to be available (faster than networkidle/full load)
-                await page.wait_for_selector('h1, article, .article__title', timeout=3000)
-            except Exception:
-                pass
-            rec = await extract_course_from_page(page, url)
+            page.set_default_navigation_timeout(
+                timeout
+            )
+
+            page.set_default_timeout(
+                10000
+            )
+        except Exception:
+            pass
+
+        results = []
+
+        try:
+            print("Visiting", url)
+
+            if (
+                "extracurricularhub.com"
+                in url
+            ):
+                opportunity_urls = (
+                    await discover_opportunity_urls(
+                        context,
+                        url,
+                        timeout
+                    )
+                )
+
+                print(
+                    "Found",
+                    len(opportunity_urls),
+                    "unique opportunity URLs"
+                )
+
+                for opportunity_url in sorted(
+                    opportunity_urls
+                ):
+
+                    opportunity_page = (
+                        await context.new_page()
+                    )
+
+                    try:
+                        print(
+                            "Visiting opportunity:",
+                            opportunity_url
+                        )
+
+                        await opportunity_page.goto(
+                            opportunity_url,
+                            timeout=timeout,
+                            wait_until="domcontentloaded"
+                        )
+
+                        await opportunity_page.wait_for_timeout(
+                            500
+                        )
+
+                        record = (
+                            await extract_course_from_page(
+                                opportunity_page,
+                                opportunity_url
+                            )
+                        )
+
+                        if record:
+                            results.append(record)
+
+                            print(
+                                "✓",
+                                record.get(
+                                    "name",
+                                    opportunity_url
+                                )
+                            )
+
+                    except Exception as e:
+                        print(
+                            "Error fetching opportunity:",
+                            opportunity_url,
+                            e
+                        )
+
+                    finally:
+                        try:
+                            await opportunity_page.close()
+                        except Exception:
+                            pass
+
+            else:
+                record = (
+                    await extract_course_from_page(
+                        page,
+                        url
+                    )
+                )
+
+                if record:
+                    results.append(record)
+
         except Exception as e:
-            print('Error fetching', url, e)
+            print(
+                "Error fetching",
+                url,
+                e
+            )
+
         finally:
             try:
                 await page.close()
             except Exception:
                 pass
 
-        # write incrementally to jsonl
-        if rec is None:
-            rec = {'source_url': url, 'error': True}
         try:
-            with open(out_path, 'a', encoding='utf8') as fo:
-                fo.write(json.dumps(rec, ensure_ascii=False) + '\n')
+            with open(
+                out_path,
+                "a",
+                encoding="utf8"
+            ) as fo:
+
+                for record in results:
+                    fo.write(
+                        json.dumps(
+                            record,
+                            ensure_ascii=False
+                        ) + "\n"
+                    )
+
         except Exception as e:
-            print('Failed to write result for', url, e)
+            print(
+                "Failed to write results:",
+                e
+            )
 
-        # update combined JSON atomically if requested. Optionally flush only every N records.
-        if combined_json_path and lock:
-            try:
-                want_flush = True
-                if flush_every and flush_every > 1 and counter is not None:
-                    # flush only every `flush_every` records
-                    want_flush = (counter['value'] % flush_every) == 0
-                if want_flush:
-                    async with lock:
-                        items = []
-                        try:
-                            with open(out_path, 'r', encoding='utf8') as fi:
-                                for line in fi:
-                                    line = line.strip()
-                                    if not line:
-                                        continue
-                                    try:
-                                        items.append(json.loads(line))
-                                    except Exception:
-                                        continue
-                        except FileNotFoundError:
-                            items = [rec]
-                        with open(combined_json_path, 'w', encoding='utf8') as fo2:
-                            json.dump(items, fo2, indent=2, ensure_ascii=False)
-            except Exception as e:
-                print('Failed to update combined JSON:', e)
-
-        return rec
+        return results
 
 
-async def main(output, json_output, concurrency, delay, links_path, timeout, storage_state=None, flush_every=1):
-    links = await load_links(links_path)
-    print('Will scrape', len(links), 'URLs from', links_path)
+async def main(
+    output,
+    json_output,
+    concurrency,
+    delay,
+    links_path,
+    timeout,
+    storage_state=None,
+    flush_every=1
+):
+    links = await load_links(
+        links_path
+    )
+
+    print(
+        "Will scrape",
+        len(links),
+        "URLs from",
+        links_path
+    )
+
     async with async_playwright() as pw:
-        browser = await pw.chromium.launch(headless=True)
-        # create a single context; if storage_state provided, use it so requests are authenticated
+
+        browser = await pw.chromium.launch(
+            headless=True
+        )
+
         if storage_state:
             try:
-                context = await browser.new_context(storage_state=storage_state)
+                context = await browser.new_context(
+                    storage_state=storage_state
+                )
             except Exception:
-                # fallback to creating a fresh context
                 context = await browser.new_context()
         else:
             context = await browser.new_context()
-        sem = asyncio.Semaphore(concurrency)
-        tasks = []
-        # lock to protect combined JSON writes
-        json_lock = asyncio.Lock() if json_output else None
-        # optional counter used to decide when to flush combined JSON
-        flush_counter = {'value': 0}
-        for url in links:
-            flush_counter['value'] += 1
-            tasks.append(fetch_worker(context, url, output, timeout, sem, json_output, json_lock, flush_every=flush_every, counter=flush_counter))
-            # small stagger to avoid bursts
-            await asyncio.sleep(delay)
 
-        # run tasks with concurrency limited by semaphore inside fetch_worker
-        results = await asyncio.gather(*tasks)
+        sem = asyncio.Semaphore(
+            concurrency
+        )
+
+        tasks = []
+
+        json_lock = (
+            asyncio.Lock()
+            if json_output
+            else None
+        )
+
+        flush_counter = {
+            "value": 0
+        }
+
+        for url in links:
+
+            flush_counter["value"] += 1
+
+            tasks.append(
+                fetch_worker(
+                    context,
+                    url,
+                    output,
+                    timeout,
+                    sem,
+                    json_output,
+                    json_lock,
+                    flush_every=flush_every,
+                    counter=flush_counter
+                )
+            )
+
+            await asyncio.sleep(
+                delay
+            )
+
+        results = await asyncio.gather(
+            *tasks
+        )
+
         try:
             await context.close()
         except Exception:
             pass
+
         await browser.close()
 
-    # write combined JSON
-    final = [r for r in results if r]
-    if json_output:
-        with open(json_output, 'w', encoding='utf8') as f:
-            json.dump(final, f, indent=2, ensure_ascii=False)
-        print('Wrote', json_output)
-    else:
-        print('Completed', len(final), 'records')
+    final = []
+    seen_urls = set()
 
-if __name__ == '__main__':
+    for result in results:
+
+        if isinstance(result, list):
+
+            for record in result:
+
+                source_url = record.get(
+                    "source_url",
+                    ""
+                )
+
+                if source_url in seen_urls:
+                    continue
+
+                seen_urls.add(
+                    source_url
+                )
+
+                final.append(record)
+
+        elif result:
+
+            source_url = result.get(
+                "source_url",
+                ""
+            )
+
+            if source_url not in seen_urls:
+
+                seen_urls.add(
+                    source_url
+                )
+
+                final.append(result)
+
+    if json_output:
+
+        with open(
+            json_output,
+            "w",
+            encoding="utf8"
+        ) as f:
+
+            json.dump(
+                final,
+                f,
+                indent=2,
+                ensure_ascii=False
+            )
+
+        print(
+            "Wrote",
+            json_output
+        )
+
+    else:
+
+        print(
+            "Completed",
+            len(final),
+            "records"
+        )
+
+
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--links', '-l', default='links.txt', help='Path to file with URLs (one per line)')
-    parser.add_argument('--output', '-o', default='live_courses.jsonl', help='Line-delimited JSON output path')
-    parser.add_argument('--json', default='live_courses.json', help='Final combined JSON output path')
-    parser.add_argument('--concurrency', type=int, default=2, help='Number of concurrent browser pages')
-    parser.add_argument('--delay', type=float, default=0.5, help='Stagger delay between starting tasks (seconds)')
-    parser.add_argument('--timeout', type=int, default=30000, help='Navigation timeout in ms')
-    parser.add_argument('--storage-state', default=None, help='Path to Playwright storage_state.json (for authenticated sessions)')
-    parser.add_argument('--flush-every', type=int, default=1, help='Write combined JSON every N records (1 = every record)')
+
+    parser.add_argument(
+        "--links",
+        "-l",
+        default="links.txt",
+        help="Path to file with URLs (one per line)"
+    )
+
+    parser.add_argument(
+        "--output",
+        "-o",
+        default="live_courses.jsonl",
+        help="Line-delimited JSON output path"
+    )
+
+    parser.add_argument(
+        "--json",
+        default="live_courses.json",
+        help="Final combined JSON output path"
+    )
+
+    parser.add_argument(
+        "--concurrency",
+        type=int,
+        default=2,
+        help="Number of concurrent browser pages"
+    )
+
+    parser.add_argument(
+        "--delay",
+        type=float,
+        default=0.5,
+        help="Stagger delay between starting tasks (seconds)"
+    )
+
+    parser.add_argument(
+        "--timeout",
+        type=int,
+        default=30000,
+        help="Navigation timeout in ms"
+    )
+
+    parser.add_argument(
+        "--storage-state",
+        default=None,
+        help="Path to Playwright storage_state.json"
+    )
+
+    parser.add_argument(
+        "--flush-every",
+        type=int,
+        default=1,
+        help="Write combined JSON every N records"
+    )
+
     args = parser.parse_args()
-    asyncio.run(main(args.output, args.json, args.concurrency, args.delay, args.links, args.timeout, storage_state=args.storage_state, flush_every=args.flush_every))
+
+    asyncio.run(
+        main(
+            args.output,
+            args.json,
+            args.concurrency,
+            args.delay,
+            args.links,
+            args.timeout,
+            storage_state=args.storage_state,
+            flush_every=args.flush_every
+        )
+    )
