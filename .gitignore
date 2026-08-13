@@ -9,3 +9,6 @@ npm-debug.log*
 data/*.bak
 data/*.tmp
 .env
+#json files
+live_courses.json
+Live_courses.jsonl

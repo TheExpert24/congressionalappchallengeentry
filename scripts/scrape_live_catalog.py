@@ -60,70 +60,59 @@ async def extract_course_from_page(page, url):
         return ""
 
     data["description"] = ""
-
     try:
-        quick_answer = await page.locator("text=Quick Answer").first
+        paragraphs = await page.locator("p").all_inner_texts()
 
-        if await quick_answer.count():
-            text = await quick_answer.evaluate("""
-                element => {
-                    let result = [];
-                    let current = element.parentElement;
+        paragraphs = [
+            re.sub(r"\s+", " ", p).strip()
+            for p in paragraphs
+            if len(p.strip()) >= 40
+        ]
 
-                    if (!current) return "";
+        candidates = []
 
-                    let nodes = current.querySelectorAll("*");
+        for paragraph in paragraphs:
+            lower = paragraph.lower()
 
-                    for (const node of nodes) {
-                        const text = node.innerText?.trim();
+            if any(x in lower for x in [
+                "frequently asked questions",
+                "key facts",
+                "related searches",
+                "privacy policy",
+                "terms of service"
+            ]):
+                continue
 
-                        if (
-                            text &&
-                            text !== "Quick Answer" &&
-                            text.length > 40
-                        ) {
-                            result.push(text);
-                        }
-                    }
+            candidates.append(paragraph)
 
-                    return result.join(" ");
-                }
-            """)
+        if candidates:
+            description_text = " ".join(candidates)
 
-            text = re.sub(r"\\s+", " ", text).strip()
+            sentences = re.split(
+                r"(?<=[.!?])\s+",
+                description_text
+            )
 
-            if text:
-                data["description"] = text
+            selected = []
+
+            for sentence in sentences:
+                sentence = sentence.strip()
+
+                if not sentence:
+                    continue
+
+                selected.append(sentence)
+
+                if len(selected) >= 3:
+                    break
+
+            data["description"] = " ".join(selected)
 
     except Exception:
         pass
 
     if not data["description"]:
         try:
-            paragraphs = await page.locator("p").all_inner_texts()
-
-            paragraphs = [
-                re.sub(r"\\s+", " ", p).strip()
-                for p in paragraphs
-                if len(p.strip()) >= 40
-            ]
-
-            for paragraph in paragraphs:
-                lower = paragraph.lower()
-
-                if (
-                    "program overview" not in lower
-                    and "key facts" not in lower
-                    and "frequently asked questions" not in lower
-                ):
-                    data["description"] = paragraph
-                    break
-
-        except Exception:
-            pass
-
-    if not data["description"]:
-        try:
             meta = await page.locator(
                 'meta[name="description"]'
             ).first.get_attribute("content")
@@ -131,17 +120,6 @@ async def extract_course_from_page(page, url):
             if meta:
                 data["description"] = meta.strip()
 
-        except Exception:
-            pass
-
-    if not data["description"]:
-        try:
-            meta = await page.locator(
-                'meta[name="description"]'
-            ).first.get_attribute("content")
-
-            if meta:
-                data["description"] = meta.strip()
         except Exception:
             pass
 
