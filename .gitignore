@@ -12,3 +12,5 @@ data/*.tmp
 #json files
 live_courses.json
 Live_courses.jsonl
+#readme
+README.md
