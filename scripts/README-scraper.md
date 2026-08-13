@@ -12,6 +12,14 @@ pip install -r requirements.txt
 playwright install
 python scripts\scrape_live_catalog.py --links links.txt --output live_courses.jsonl --json live_courses.json --concurrency 2 --delay 0.5
 ```
+```bash
+python -m venv venv
+source bin/venv/activate
+pip install -r requirements.txt
+playwright install
+python3 scripts/scrape_live_catalog.py --links links.txt --json live_courses.json
+```
+
 
 Outputs:
 - `live_courses.jsonl` — incremental line-delimited JSON, one record per line.
