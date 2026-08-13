@@ -3,7 +3,7 @@ Scraper README
 
 This directory contains `scrape_live_catalog.py`, a Playwright-based scraper that reads URLs from `links.txt` and extracts course fields.
 
-Quick run (PowerShell, from project root):
+Quick run (PowerShell and Bash, from project root):
 
 ```powershell
 python -m venv venv
