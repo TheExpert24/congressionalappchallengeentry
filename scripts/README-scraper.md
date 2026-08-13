@@ -14,7 +14,7 @@ python scripts\scrape_live_catalog.py --links links.txt --output live_courses.js
 ```
 ```bash
 python -m venv venv
-source bin/venv/activate
+source venv/bin/activate
 pip install -r requirements.txt
 playwright install
 python3 scripts/scrape_live_catalog.py --links links.txt --json live_courses.json

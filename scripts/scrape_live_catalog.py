@@ -44,18 +44,31 @@ async def extract_course_from_page(page, url):
     ]
 
     def find_after_label(labels):
+        normalized_labels = [
+            re.sub(r"\s+", " ", label.lower()).strip()
+            for label in labels
+        ]
+
         for i, line in enumerate(lines):
-            lower = line.lower()
+            normalized_line = re.sub(
+                r"\s+",
+                " ",
+                line.lower()
+            ).strip()
 
-            for label in labels:
-                label_lower = label.lower()
-
-                if lower == label_lower:
+            for label in normalized_labels:
+                if normalized_line == label:
                     if i + 1 < len(lines):
-                        return lines[i + 1]
+                        value = lines[i + 1].strip()
 
-                if lower.startswith(label_lower + ":"):
-                    return line.split(":", 1)[1].strip()
+                        if value:
+                            return value
+
+                if normalized_line.startswith(label + ":"):
+                    value = line.split(":", 1)[1].strip()
+
+                    if value:
+                        return value
 
         return ""
 
@@ -127,12 +140,16 @@ async def extract_course_from_page(page, url):
         "Organization",
         "Organizer",
         "Provider",
-        "Offered by"
+        "Offered by",
+        "Sponsor",
+        "Host",
     ])
 
     data["location"] = find_after_label([
         "Location",
-        "Where"
+        "Where",
+        "Program Location",
+        "Event Location",
     ])
 
     data["cost"] = find_after_label([
