@@ -20,7 +20,6 @@ async def extract_course_from_page(page, url):
         "cost": "",
         "deadline": "",
         "eligibility": "",
-        "age": "",
         "grade": "",
         "official_url": ""
     }
@@ -180,13 +179,6 @@ async def extract_course_from_page(page, url):
         "Eligibility",
         "Requirements"
     ])
-
-    data["age"] = find_after_label([
-        "Age",
-        "Ages",
-        "Age Range"
-    ])
-
     data["grade"] = find_after_label([
         "Grade",
         "Grades",
