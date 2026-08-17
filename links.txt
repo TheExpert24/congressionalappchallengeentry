@@ -18,4 +18,8 @@ https://extracurricularhub.com/extracurriculars/film
 https://extracurricularhub.com/extracurriculars/politics
 https://extracurricularhub.com/extracurriculars/law
 https://extracurricularhub.com/extracurriculars/psychology
+<<<<<<< HEAD
 https://extracurricularhub.com/extracurriculars/environment
+=======
+https://extracurricularhub.com/extracurriculars/environment
+>>>>>>> 2a3a357d4b0b30eb72d28872193e969d714a5bbe
