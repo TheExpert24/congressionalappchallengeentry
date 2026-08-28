@@ -11,6 +11,10 @@ data/*.tmp
 .env
 #json files
 live_courses.json
-Live_courses.jsonl
+live_courses.jsonl
+all_opportunities
+new_courses_clean.json
+new_courses.json
+opportunities.json
 #readme
 README.md
