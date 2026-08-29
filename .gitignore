@@ -12,7 +12,6 @@ data/*.tmp
 #json files
 live_courses.json
 live_courses.jsonl
-all_opportunities
 new_courses_clean.json
 new_courses.json
 opportunities.json
