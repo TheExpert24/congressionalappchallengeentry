@@ -47,10 +47,30 @@ fetch("all_opportunities.json")
             Array.from(new Set(uniqueOpportunities.flatMap(opportunity => opportunity.categories || []))).filter(Boolean).sort()
         );
 
-        populateSelect(
-            gradeFilter,
-            Array.from(new Set(uniqueOpportunities.map(opportunity => opportunity.grade))).filter(Boolean).sort()
-        );
+        const grades = [
+            "Kindergarten",
+            "1st",
+            "2nd",
+            "3rd",
+            "4th",
+            "5th",
+            "6th",
+            "7th",
+            "8th",
+            "9th",
+            "10th",
+            "11th",
+            "12th",
+            "College",
+            "Grad School"
+        ];
+
+        grades.forEach(grade => {
+            const option = document.createElement("option");
+            option.value = grade;
+            option.textContent = grade;
+            gradeFilter.appendChild(option);
+        });
 
         function matchesFilters(opportunity) {
             const query = searchInput.value.trim().toLowerCase();
@@ -72,10 +92,52 @@ fetch("all_opportunities.json")
             const matchesQuery = !query || searchableText.includes(query);
             const matchesType = !selectedType || opportunity.type === selectedType;
             const matchesCategory = !selectedCategory || (opportunity.categories || []).includes(selectedCategory);
-            const matchesGrade = !selectedGrade || opportunity.grade === selectedGrade;
+            function getGrades(gradeText) {
+                if (!gradeText) {
+                    return [];
+                }
 
-            return matchesQuery && matchesType && matchesCategory && matchesGrade;
-        }
+                const text = gradeText.toLowerCase();
+                const foundGrades = new Set();
+
+                if (
+                    text.includes("kindergarten") ||
+                    /\bk\b/.test(text)
+                ) {
+                    foundGrades.add(0);
+                }
+
+                const numbers = [...text.matchAll(/\d{1,2}/g)]
+                    .map(match => Number(match[0]))
+                    .filter(number => number >= 1 && number <= 12);
+
+                const hasRange = /-|–|—|to|through/.test(text);
+
+                if (hasRange && numbers.length >= 2) {
+                    const start = numbers[0];
+                    const end = numbers[1];
+
+                    for (let grade = start; grade <= end; grade++) {
+                        foundGrades.add(grade);
+                    }
+                } else {
+                    numbers.forEach(number => {
+                        foundGrades.add(number);
+                    });
+                }
+
+                return [...foundGrades];
+            }
+
+            const opportunityGrades = getGrades(opportunity.grade);
+
+            const selectedGradeNumber = grades.indexOf(selectedGrade);
+
+            const matchesGrade =
+                !selectedGrade ||
+                opportunityGrades.includes(selectedGradeNumber);
+                        return matchesQuery && matchesType && matchesCategory && matchesGrade;
+        }   
 
         function renderOpportunities() {
             const filtered = uniqueOpportunities.filter(matchesFilters);

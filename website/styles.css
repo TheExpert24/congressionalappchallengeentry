@@ -46,6 +46,18 @@ h1 {
     width: 100%;
     min-height: 42px;
 }
+.clear-button2{
+    border: 2px solid black;
+    background: white;
+    color: black;
+    padding: 8px 10px;
+    font: inherit;
+    border-radius: 0;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 42px;
+    margin-top: 20px;
+}
 
 .search-group input {
     min-width: 0;
