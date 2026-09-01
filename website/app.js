@@ -60,9 +60,7 @@ fetch("all_opportunities.json")
             "9th",
             "10th",
             "11th",
-            "12th",
-            "College",
-            "Grad School"
+            "12th"
         ];
 
         grades.forEach(grade => {
@@ -97,32 +95,55 @@ fetch("all_opportunities.json")
                     return [];
                 }
 
-                const text = gradeText.toLowerCase();
+                const text = gradeText
+                    .toLowerCase()
+                    .replace(/[–—]/g, "-");
+
                 const foundGrades = new Set();
 
-                if (
-                    text.includes("kindergarten") ||
-                    /\bk\b/.test(text)
-                ) {
-                    foundGrades.add(0);
+                function convertGrade(value) {
+                    if (value === "k" || value === "kindergarten") {
+                        return 0;
+                    }
+
+                    const number = Number(value);
+
+                    if (!Number.isNaN(number) && number >= 1 && number <= 12) {
+                        return number;
+                    }
+
+                    return null;
                 }
 
-                const numbers = [...text.matchAll(/\d{1,2}/g)]
-                    .map(match => Number(match[0]))
-                    .filter(number => number >= 1 && number <= 12);
+                const rangeMatch = text.match(
+                    /\b(k|kindergarten|\d{1,2})\s*(?:-|to|through)\s*(k|kindergarten|\d{1,2})\b/
+                );
 
-                const hasRange = /-|–|—|to|through/.test(text);
+                if (rangeMatch) {
+                    const start = convertGrade(rangeMatch[1]);
+                    const end = convertGrade(rangeMatch[2]);
 
-                if (hasRange && numbers.length >= 2) {
-                    const start = numbers[0];
-                    const end = numbers[1];
-
-                    for (let grade = start; grade <= end; grade++) {
-                        foundGrades.add(grade);
+                    if (start !== null && end !== null && start <= end) {
+                        for (let grade = start; grade <= end; grade++) {
+                            foundGrades.add(grade);
+                        }
                     }
                 } else {
-                    numbers.forEach(number => {
-                        foundGrades.add(number);
+                    if (
+                        /\bk\b/.test(text) ||
+                        text.includes("kindergarten")
+                    ) {
+                        foundGrades.add(0);
+                    }
+
+                    const numbers = [...text.matchAll(/\b\d{1,2}\b/g)];
+
+                    numbers.forEach(match => {
+                        const grade = Number(match[0]);
+
+                        if (grade >= 1 && grade <= 12) {
+                            foundGrades.add(grade);
+                        }
                     });
                 }
 
