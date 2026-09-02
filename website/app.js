@@ -83,7 +83,6 @@ fetch("all_opportunities.json")
                 opportunity.type,
                 opportunity.eligibility,
                 opportunity.grade,
-                opportunity.age,
                 (opportunity.categories || []).join(" ")
             ].join(" ").toLowerCase();
 
@@ -188,7 +187,6 @@ fetch("all_opportunities.json")
                     "<p><strong>Deadline:</strong> " + (opportunity.deadline || "Not listed") + "</p>" +
                     "<p><strong>Eligibility:</strong> " + (opportunity.eligibility || "Not listed") + "</p>" +
                     "<p><strong>Grade:</strong> " + (opportunity.grade || "Not listed") + "</p>" +
-                    "<p><strong>Age:</strong> " + (opportunity.age || "Not listed") + "</p>" +
                     (opportunity.official_url
                         ? "<a href='" + opportunity.official_url + "' target='_blank'>Official Website</a>"
                         : "");

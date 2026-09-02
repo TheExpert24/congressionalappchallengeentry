@@ -214,29 +214,8 @@
     "slug": "science-olympiad"
   },
   {
-    "name": "Leaders Wanted",
-    "organization": "",
-    "description": "Transform your teaching with NSTA's latest resources and more",
-    "type": "Competition",
-    "categories": [
-      "STEM",
-      "Science",
-      "Competition",
-      "Environment"
-    ],
-    "location": "",
-    "cost": "",
-    "deadline": "",
-    "eligibility": "K-12",
-    "grade": "K-12",
-    "age": "",
-    "official_url": "https://www.nsta.org",
-    "source_url": "https://www.nsta.org",
-    "slug": "leaders-wanted"
-  },
-  {
-    "name": "Elevating Every Mind",
-    "organization": "",
+    "name": "Junior Science and Humanities Symposium",
+    "organization": "National Science Teaching Association",
     "description": "The STEM competition that challenges high school students from everywhere to achieve, and to build the skills that prepare them for college and career.",
     "type": "Competition",
     "categories": [
@@ -253,27 +232,26 @@
     "age": "",
     "official_url": "https://www.jshs.org",
     "source_url": "https://www.jshs.org",
-    "slug": "elevating-every-mind"
+    "slug": "jshs"
   },
   {
-    "name": "Make what you wish existed",
-    "organization": "",
+    "name": "CodeAI",
+    "organization": "CodeAI",
     "description": "Free courses and activities in computer science, AI science, and data science. Everything you need to go from idea to something real.",
     "type": "Program",
     "categories": [
       "Computer Science",
-      "Science",
-      "Music"
+      "Science"
     ],
     "location": "",
     "cost": "",
     "deadline": "",
-    "eligibility": "K-5",
-    "grade": "K-5",
+    "eligibility": "K-12",
+    "grade": "K-12",
     "age": "",
     "official_url": "https://code.org/students",
     "source_url": "https://code.org/students",
-    "slug": "make-what-you-wish-existed"
+    "slug": "codeai"
   },
   {
     "name": "Codédex | Start Your Coding Adventure ⋆˙⟡",
@@ -282,8 +260,7 @@
     "type": "Program",
     "categories": [
       "Computer Science",
-      "Science",
-      "Competition"
+      "Science"
     ],
     "location": "",
     "cost": "",
@@ -296,33 +273,12 @@
     "slug": "cod-dex-start-your-coding-adventure"
   },
   {
-    "name": "USACO",
-    "organization": "",
-    "description": "The USACO is pleased to announce its finalists for the 2025-2026 season, all invited to participate in our training camp in late May. Along with these finalists we are thrilled to announce the team members representing the USA at the 2026 European Girls Olympiad in Informatics (team members representing the USA for the 2026 International Olympiad in Informatics will be selected at camp).",
-    "type": "Competition",
-    "categories": [
-      "Computer Science",
-      "STEM",
-      "Mathematics",
-      "Competition"
-    ],
-    "location": "",
-    "cost": "",
-    "deadline": "",
-    "eligibility": "",
-    "grade": "",
-    "age": "",
-    "official_url": "https://www.usaco.org",
-    "source_url": "https://www.usaco.org",
-    "slug": "usaco"
-  },
-  {
-    "name": "Sign up for Scholastic Awards news",
+    "name": "Alliance for Young Artists and Writers",
     "organization": "",
     "description": "Supporting the future of creativity since 1923",
     "type": "Program",
     "categories": [
-      "Music"
+      "Journalism"
     ],
     "location": "",
     "cost": "",
@@ -355,9 +311,9 @@
     "slug": "youngarts-competition-awards-more-for-artists-ages-15-18"
   },
   {
-    "name": "The #1 Chess Platform for Kids",
+    "name": "ChessKid",
     "organization": "",
-    "description": "Learning with ChessKid is fun! Play games, watch video lessons, and solve fun puzzles!",
+    "description": "#1 Chess learning platform for kids. Learning with ChessKid is fun! Play games, watch video lessons, and solve fun puzzles!",
     "type": "Other",
     "categories": [
       "STEM"
@@ -373,7 +329,7 @@
     "slug": "the-1-chess-platform-for-kids"
   },
   {
-    "name": "LEARNING IS IN OUR NATURE",
+    "name": "Project Learning Tree",
     "organization": "",
     "description": "Activities and resources to engage children in learning about the environment through the lens of trees and forests.",
     "type": "Program",
@@ -392,27 +348,7 @@
     "slug": "learning-is-in-our-nature"
   },
   {
-    "name": "A Global Community of Changemakers",
-    "organization": "",
-    "description": "What we're doing to illuminate and protect the wonder of our world.",
-    "type": "Program",
-    "categories": [
-      "STEM",
-      "Science",
-      "Environment"
-    ],
-    "location": "",
-    "cost": "",
-    "deadline": "",
-    "eligibility": "",
-    "grade": "",
-    "age": "",
-    "official_url": "https://www.nationalgeographic.org/society",
-    "source_url": "https://www.nationalgeographic.org/society",
-    "slug": "a-global-community-of-changemakers"
-  },
-  {
-    "name": "What is Speech and Debate?",
+    "name": "National Speech & Debate Association",
     "organization": "",
     "description": "The National Speech & Debate Association (NSDA) is the largest speech and debate organization in the United States, supporting interscholastic tournaments, schools, coaches, and students since 1925. Students compete in more than ten speech, public speaking, and acting events and five debate events across the country and around the world through our growing network of international schools.",
     "type": "Competition",
@@ -430,44 +366,6 @@
     "official_url": "https://www.speechanddebate.org",
     "source_url": "https://www.speechanddebate.org",
     "slug": "what-is-speech-and-debate"
-  },
-  {
-    "name": "Studying the past to inform the present and shape the future",
-    "organization": "",
-    "description": "For more than 50 years, National History Day has impacted the teaching and learning of history across the world. As a 501(c)(3) non-profit, NHD’s work impacts students, teachers, schools, and communities as we strengthen our collective understanding of the past.",
-    "type": "Competition",
-    "categories": [
-      "Competition"
-    ],
-    "location": "",
-    "cost": "",
-    "deadline": "",
-    "eligibility": "Grades 6-12",
-    "grade": "6-12",
-    "age": "",
-    "official_url": "https://www.nhd.org",
-    "source_url": "https://www.nhd.org",
-    "slug": "studying-the-past-to-inform-the-present-and-shape-the-future"
-  },
-  {
-    "name": "We Are Teachers - Ideas and inspiration for reaching the next generation",
-    "organization": "",
-    "description": "We love these free, higher-order math games that help build critical thinking skills.",
-    "type": "Other",
-    "categories": [
-      "Mathematics",
-      "Science",
-      "Music"
-    ],
-    "location": "",
-    "cost": "",
-    "deadline": "",
-    "eligibility": "K-12",
-    "grade": "K-12",
-    "age": "",
-    "official_url": "https://www.weareteachers.com",
-    "source_url": "https://www.weareteachers.com",
-    "slug": "we-are-teachers-ideas-and-inspiration-for-reaching-the-next-generation"
   },
   {
     "name": "AEOP GEMS (Gains in the Education of Mathematics and Science)",
@@ -4048,25 +3946,6 @@
     "official_url": "https://www.ncfl.org/nationals.html",
     "source_url": "https://extracurricularhub.com/extracurriculars/national-catholic-forensic-league-grand-nationals",
     "slug": "ncfl-grand-national-tournament"
-  },
-  {
-    "name": "NSDA National Speech & Debate Tournament",
-    "organization": "National Speech & Debate Association",
-    "description": "Annual in-person national championship for grades 9-12 reached mainly through NSDA district qualification and registered by a member school's coach. NSDA National Speech & Debate Tournament is a competition run by National Speech & Debate Association for high school students. The format is in person.",
-    "type": "Other",
-    "categories": [
-      "Debate",
-      "Competition"
-    ],
-    "location": "Nationwide (rotating city), USA",
-    "cost": "$400",
-    "deadline": "Coming soon",
-    "eligibility": "Grades 9-12",
-    "grade": "9-12",
-    "age": "",
-    "official_url": "https://www.speechanddebate.org/nationals",
-    "source_url": "https://extracurricularhub.com/extracurriculars/national-speech-and-debate-association-tournament",
-    "slug": "nsda-national-speech-debate-tournament"
   },
   {
     "name": "National Speech & Debate Association Honor Society",
