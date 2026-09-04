@@ -189,11 +189,11 @@ fetch("all_opportunities.json")
                     "<p>" + (opportunity.description || "") + "</p>" +
                     "<p><strong>Organization:</strong> " + (opportunity.organization || "Not listed") + "</p>" +
                     "<p><strong>Categories:</strong> " + ((opportunity.categories || []).join(", ") || "Not listed") + "</p>" +
-                    "<p><strong>Location:</strong> " + (opportunity.location || "Not listed") + "</p>" +
-                    "<p><strong>Cost:</strong> " + (opportunity.cost || "Not listed") + "</p>" +
+                    "<p><strong>Location:</strong> " + (opportunity.location || "N/A") + "</p>" +
+                    "<p><strong>Cost:</strong> " + (opportunity.cost || "N/A") + "</p>" +
                     "<p><strong>Deadline:</strong> " + (opportunity.deadline || "Not listed") + "</p>" +
-                    "<p><strong>Eligibility:</strong> " + (opportunity.eligibility || "Not listed") + "</p>" +
-                    "<p><strong>Grade:</strong> " + (opportunity.grade || "Not listed") + "</p>" +
+                    "<p><strong>Eligibility:</strong> " + (opportunity.eligibility || "N/A") + "</p>" +
+                    "<p><strong>Grade:</strong> " + (opportunity.grade || "N/A") + "</p>" +
                     (opportunity.official_url
                         ? "<a href='" + opportunity.official_url + "' target='_blank'>Official Website</a>"
                         : "");
