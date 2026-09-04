@@ -12,6 +12,12 @@
     <h1>Congressional App Challenge Entry</h1>
     <p>It is hard to find opportunities for your child or for yourself. But we make it simple.</p>
 
+    <div class="page-actions">
+        <button id="downloadJson" type="button">Download JSON</button>
+        <button id="resetSavedChanges" type="button" class="secondary-action">Reset Saved Changes</button>
+        <span id="saveStatus" role="status"></span>
+    </div>
+
     <div class="filters" aria-label="Opportunity filters">
         <div class="filter-group search-group">
             <label for="searchInput">Search</label>
@@ -35,5 +41,32 @@
     </div>
 
     <main id="opportunities"></main>
+
+    <dialog id="editDialog" aria-labelledby="editDialogTitle">
+        <form id="editForm" method="dialog">
+            <div class="dialog-heading">
+                <h2 id="editDialogTitle">Edit opportunity</h2>
+                <button id="closeEdit" type="button" class="icon-button" aria-label="Close">&times;</button>
+            </div>
+            <div class="edit-fields">
+                <label>Name<input name="name" required></label>
+                <label>Organization<input name="organization"></label>
+                <label>Description<textarea name="description" required></textarea></label>
+                <label>Categories<input name="categories" placeholder="STEM, Computer Science"></label>
+                <label>Location<input name="location"></label>
+                <label>Cost<input name="cost"></label>
+                <label>Deadline<input name="deadline"></label>
+                <label>Eligibility<input name="eligibility"></label>
+                <label>Grade<input name="grade"></label>
+                <label>Official URL<input name="official_url" type="url"></label>
+                <label>Source URL<input name="source_url" type="url"></label>
+                <label>Slug<input name="slug"></label>
+            </div>
+            <div class="dialog-actions">
+                <button id="cancelEdit" type="button" class="secondary-action">Cancel</button>
+                <button type="submit">Save Entry</button>
+            </div>
+        </form>
+    </dialog>
 </body>
 </html>

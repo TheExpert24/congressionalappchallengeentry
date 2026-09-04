@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "name": "FIRST LEGO League",
     "organization": "FIRST",
@@ -6501,5 +6501,109 @@
     "official_url": "",
     "source_url": "https://extracurricularhub.com/extracurriculars/seniors",
     "slug": "extracurriculars-for-high-school-seniors"
+  },
+  {
+    "name": "Celebrating Art",
+    "organization": "",
+    "description": "Celebrating Art: Art Contest gives young artists across the United States a chance to showcase their creativity, earn national recognition, and experience the excitement of professional publication.",
+    "categories": [
+      "Art",
+      "Competition"
+    ],
+    "location": "",
+    "cost": "Free",
+    "deadline": "",
+    "eligibility": "Open",
+    "grade": "K-12",
+    "official_url": "https://www.celebratingart.com/",
+    "source_url": "",
+    "slug": "celebrating-art"
+  },
+  {
+    "name": "Doodle for Google",
+    "organization": "Google",
+    "description": "Doodle for Google is an annual art contest where U.S. students in kindergarten through 12th grade redesign the Google logo around a specific yearly theme.",
+    "categories": [
+      "Art",
+      "Competition"
+    ],
+    "location": "",
+    "cost": "Free",
+    "deadline": "",
+    "eligibility": "Open",
+    "grade": "K-12",
+    "official_url": "https://doodles.google.com/d4g/",
+    "source_url": "",
+    "slug": "doodle-for-google"
+  },
+  {
+    "name": "ARTEFACT Competition",
+    "organization": "ARTEFACT",
+    "description": "ARTEFFECT is a free annual international visual arts competition that invites students to create original artwork honoring historical \"Unsung Heroes.\"",
+    "categories": [
+      "Art",
+      "Competition"
+    ],
+    "location": "",
+    "cost": "",
+    "deadline": "",
+    "eligibility": "Open",
+    "grade": "6-12",
+    "official_url": "",
+    "source_url": "",
+    "slug": "artefact-competition"
+  },
+  {
+    "name": "K12 National Photography Competition",
+    "organization": "K12 Enrichment",
+    "description": "The 10th Annual K12 National Photography Competition is a nationwide contest for U.S. students in grades PreK–12 to showcase their creativity and storytelling through original photos.",
+    "categories": [
+      "Art",
+      "Competition"
+    ],
+    "location": "",
+    "cost": "",
+    "deadline": "",
+    "eligibility": "Open",
+    "grade": "K-12",
+    "official_url": "",
+    "source_url": "",
+    "slug": "k12-national-photography-competition"
+  },
+  {
+    "name": "Conrad Challenge",
+    "organization": "Equinor",
+    "description": "The Conrad Challenge is an annual, internationally renowned STEM innovation and entrepreneurship competition designed for students aged 13 to 18. Student teams are challenged to apply science and technology to design commercially viable solutions to real-world global problems, developing a full business model, marketing strategy, and prototype along the way.",
+    "categories": [
+      "STEM",
+      "Business",
+      "Economics",
+      "Entrepreneurship"
+    ],
+    "location": "",
+    "cost": "Free",
+    "deadline": "",
+    "eligibility": "Open",
+    "grade": "9-12",
+    "official_url": "https://conrad.spacecenter.org/",
+    "source_url": "",
+    "slug": "conrad-challenge"
+  },
+  {
+    "name": "USA Mathematical Talent Search",
+    "organization": "USAMTS",
+    "description": "The USA Mathematical Talent Search (USAMTS) is a free proof‑based math contest for US middle and high school students. Students receive written feedback on their work, and can earn prizes based on their performance.",
+    "categories": [
+      "Mathematics",
+      "Competition"
+    ],
+    "location": "",
+    "cost": "Free",
+    "deadline": "",
+    "eligibility": "Open",
+    "grade": "6-12",
+    "official_url": "https://www.usamts.org/",
+    "source_url": "",
+    "slug": "usa-mathematical-talent-search"
   }
 ]

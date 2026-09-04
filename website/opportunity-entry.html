@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunity Entry Builder</title>
+    <style>
+        :root {
+            --ink: #17221f;
+            --muted: #5e6b66;
+            --paper: #f7f4ed;
+            --panel: #fffdf8;
+            --line: #cbd2c8;
+            --green: #17634a;
+            --green-dark: #0e4635;
+            --gold: #e8b84b;
+            --shadow: 0 18px 50px rgba(23, 34, 31, 0.10);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--ink);
+            background: radial-gradient(circle at top right, #e8efe4 0, transparent 32%), var(--paper);
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 44px 0 64px; }
+        header { display: flex; justify-content: space-between; gap: 28px; align-items: end; margin-bottom: 30px; }
+        .eyebrow { margin: 0 0 10px; color: var(--green); font: 700 12px/1.2 'Trebuchet MS', sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+        h1 { max-width: 660px; margin: 0; font-size: clamp(2.4rem, 6vw, 4.8rem); line-height: 1; font-weight: 400; letter-spacing: 0; overflow-wrap: anywhere; }
+        .intro { max-width: 270px; margin: 0 0 5px; color: var(--muted); font: 15px/1.5 'Trebuchet MS', sans-serif; overflow-wrap: anywhere; }
+
+        .workspace { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(330px, .9fr); gap: 24px; align-items: start; }
+        .panel { background: color-mix(in srgb, var(--panel) 94%, transparent); border: 1px solid var(--line); box-shadow: var(--shadow); }
+        .form-panel { padding: 26px; }
+        .entry-list { display: grid; gap: 18px; margin: 20px 0; }
+        .entry-card { border: 1px solid var(--line); padding: 18px; background: rgba(255, 253, 248, .7); }
+        .entry-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; }
+        .entry-heading h3 { min-width: 0; margin: 0; font-size: 1.1rem; font-weight: 400; overflow-wrap: anywhere; }
+        .remove-entry { border: 0; padding: 4px 0; color: #a54b2d; background: transparent; font-size: 11px; }
+        .remove-entry:hover { text-decoration: underline; }
+        .add-entry { width: 100%; border-style: dashed; }
+        .output-panel { position: sticky; top: 20px; overflow: hidden; }
+        .panel-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 20px 22px 16px; border-bottom: 1px solid var(--line); }
+        h2 { margin: 0; font-size: 1.35rem; font-weight: 400; }
+        .status { color: var(--green); font: 700 11px 'Trebuchet MS', sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+
+        form { display: grid; gap: 19px; }
+        .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        label { min-width: 0; display: grid; gap: 7px; color: var(--muted); font: 700 11px 'Trebuchet MS', sans-serif; letter-spacing: .08em; text-transform: uppercase; overflow-wrap: anywhere; }
+        .required { color: #a54b2d; }
+        input, textarea, select {
+            width: 100%; border: 1px solid var(--line); border-radius: 2px; padding: 11px 12px; color: var(--ink); background: #fffefa;
+            font: 16px/1.35 Georgia, 'Times New Roman', serif; outline: none;
+        }
+        textarea { min-height: 104px; resize: vertical; }
+        input:focus, textarea:focus, select:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(23, 99, 74, .12); }
+        .hint { margin: -9px 0 0; color: var(--muted); font: 12px/1.4 'Trebuchet MS', sans-serif; }
+        .actions { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 4px; }
+        button { border: 1px solid var(--green); border-radius: 2px; padding: 11px 16px; cursor: pointer; font: 700 13px 'Trebuchet MS', sans-serif; letter-spacing: .04em; }
+        .primary { color: white; background: var(--green); }
+        .primary:hover { background: var(--green-dark); }
+        .secondary { color: var(--green-dark); background: transparent; }
+        button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+        .output-wrap { padding: 18px 22px 22px; }
+        pre { min-height: 470px; max-height: 65vh; overflow: auto; margin: 0; padding: 17px; border: 1px solid #263c34; border-radius: 2px; color: #e9f0e8; background: #17221f; font: 13px/1.6 Consolas, 'Courier New', monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+        .copy-note { min-height: 18px; margin: 10px 0 0; color: var(--green); font: 12px 'Trebuchet MS', sans-serif; }
+        @media (max-width: 820px) {
+            header { display: block; }
+            .intro { max-width: none; margin-top: 18px; }
+            .workspace { grid-template-columns: 1fr; }
+            .output-panel { position: static; }
+        }
+        @media (max-width: 520px) {
+            .shell { width: min(100% - 22px, 1180px); padding-top: 28px; }
+            .form-panel { padding: 18px; }
+            .field-grid { grid-template-columns: 1fr; }
+            .output-wrap { padding: 14px; }
+            pre { min-height: 390px; }
+        }
+        @media (max-width: 680px) {
+            .field-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <main class="shell">
+        <header>
+            <div>
+                <p class="eyebrow">Congressional App Challenge entry tools</p>
+                <h1>Build an opportunity record.</h1>
+            </div>
+            <p class="intro">Fill in what you know. Add as many opportunities as you need, and copy them all at once.</p>
+        </header>
+
+        <div class="workspace">
+            <section class="panel form-panel" aria-labelledby="form-title">
+                <h2 id="form-title">Opportunity details</h2>
+                <form id="opportunityForm">
+                    <div class="entry-list" id="entryList"></div>
+                    <button class="secondary add-entry" type="button" id="addButton">+ Add another opportunity</button>
+                    <div class="actions">
+                        <button class="primary" type="button" id="copyButton">Copy all JSON</button>
+                        <button class="secondary" type="reset">Clear all</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="panel output-panel" aria-labelledby="output-title">
+                <div class="panel-heading">
+                    <h2 id="output-title">JSON array</h2>
+                    <span class="status" id="status">Live preview</span>
+                </div>
+                <div class="output-wrap">
+                    <pre id="jsonOutput" aria-live="polite"></pre>
+                    <p class="copy-note" id="copyNote" role="status"></p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        const form = document.querySelector('#opportunityForm');
+        const entryList = document.querySelector('#entryList');
+        const addButton = document.querySelector('#addButton');
+        const output = document.querySelector('#jsonOutput');
+        const copyButton = document.querySelector('#copyButton');
+        const copyNote = document.querySelector('#copyNote');
+
+        function slugify(value) {
+            return value
+                .normalize('NFKD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        }
+
+        function buildRecord(entry) {
+            const value = (name) => entry.querySelector(`[name="${name}"]`).value.trim();
+            return {
+                name: value('name'),
+                organization: value('organization'),
+                description: value('description'),
+                categories: value('categories').split(',').map((item) => item.trim()).filter(Boolean),
+                location: value('location'),
+                cost: value('cost'),
+                deadline: value('deadline'),
+                eligibility: value('eligibility'),
+                grade: value('grade'),
+                official_url: value('official_url'),
+                source_url: value('source_url'),
+                slug: value('slug')
+            };
+        }
+
+        function updatePreview() {
+            const records = [...entryList.querySelectorAll('.entry-card')].map((entry) => {
+                const slugInput = entry.querySelector('[name="slug"]');
+                if (slugInput.dataset.edited !== 'true') slugInput.value = slugify(entry.querySelector('[name="name"]').value);
+                return buildRecord(entry);
+            });
+            output.textContent = JSON.stringify(records, null, 2);
+        }
+
+        function createEntry() {
+            const card = document.createElement('section');
+            card.className = 'entry-card';
+            card.innerHTML = `
+                <div class="entry-heading"><h3>Opportunity <span class="entry-number"></span></h3><button class="remove-entry" type="button">Remove</button></div>
+                <label>Name <span class="required">required</span><input name="name" required autofocus placeholder="e.g. Congressional App Challenge"></label>
+                <div class="field-grid">
+                    <label>Organization<input name="organization" placeholder="e.g. Internet Education Foundation"></label>
+                </div>
+                <label>Description <span class="required">required</span><textarea name="description" required placeholder="What is this opportunity, and what do students do?"></textarea></label>
+                <label>Categories<input name="categories" placeholder="STEM, Computer Science, Competition"></label>
+                <p class="hint">Separate categories with commas. They will become a JSON array.</p>
+                <div class="field-grid">
+                    <label>Location<input name="location" placeholder="Online, USA"></label><label>Cost<input name="cost" placeholder="Free or $50"></label>
+                    <label>Deadline<input name="deadline" placeholder="October 26, 2026"></label><label>Eligibility<input name="eligibility" placeholder="Grades 6-12"></label>
+                    <label>Grade<input name="grade" placeholder="6-12"></label>
+                </div>
+                <div class="field-grid">
+                    <label>Official URL<input name="official_url" type="url" placeholder="https://official-site.example"></label><label>Source URL<input name="source_url" type="url" placeholder="https://where-you-found-it.example"></label>
+                </div>
+                <label>Slug<input name="slug" placeholder="Automatically generated from the name"></label>
+                <p class="hint">The slug is generated from the name until you edit it yourself.</p>`;
+            entryList.appendChild(card);
+            return card;
+        }
+
+        function renumberEntries() {
+            [...entryList.querySelectorAll('.entry-number')].forEach((number, index) => number.textContent = index + 1);
+            [...entryList.querySelectorAll('.remove-entry')].forEach((button) => button.hidden = entryList.children.length === 1);
+        }
+
+        form.addEventListener('input', (event) => {
+            if (event.target.matches('[name="slug"]')) event.target.dataset.edited = 'true';
+            updatePreview();
+            copyNote.textContent = '';
+        });
+
+        entryList.addEventListener('click', (event) => {
+            if (!event.target.matches('.remove-entry')) return;
+            event.target.closest('.entry-card').remove();
+            renumberEntries();
+            updatePreview();
+        });
+
+        addButton.addEventListener('click', () => {
+            createEntry().querySelector('[name="name"]').focus();
+            renumberEntries();
+            updatePreview();
+        });
+
+        form.addEventListener('reset', () => {
+            entryList.replaceChildren();
+            createEntry();
+            renumberEntries();
+            updatePreview();
+            copyNote.textContent = '';
+        });
+
+        copyButton.addEventListener('click', async () => {
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(output.textContent);
+                } else {
+                    const temporary = document.createElement('textarea');
+                    temporary.value = output.textContent;
+                    temporary.setAttribute('readonly', '');
+                    temporary.style.position = 'fixed';
+                    temporary.style.opacity = '0';
+                    document.body.appendChild(temporary);
+                    temporary.select();
+                    if (!document.execCommand('copy')) throw new Error('Copy failed');
+                    temporary.remove();
+                }
+                copyNote.textContent = 'Copied. Replace the contents of all_opportunities.json with this array.';
+            } catch (error) {
+                copyNote.textContent = 'Copy was blocked. Select the JSON above and copy it manually.';
+            }
+        });
+
+        createEntry();
+        renumberEntries();
+        updatePreview();
+    </script>
+</body>
+</html>
