@@ -1,6 +1,5 @@
 const container = document.getElementById("opportunities");
 const searchInput = document.getElementById("searchInput");
-const typeFilter = document.getElementById("typeFilter");
 const categoryFilter = document.getElementById("categoryFilter");
 const gradeFilter = document.getElementById("gradeFilter");
 const clearFiltersButton = document.getElementById("clearFilters");
@@ -38,11 +37,6 @@ fetch("all_opportunities.json")
         }
 
         populateSelect(
-            typeFilter,
-            Array.from(new Set(uniqueOpportunities.map(opportunity => opportunity.type))).filter(Boolean).sort()
-        );
-
-        populateSelect(
             categoryFilter,
             Array.from(new Set(uniqueOpportunities.flatMap(opportunity => opportunity.categories || []))).filter(Boolean).sort()
         );
@@ -72,7 +66,6 @@ fetch("all_opportunities.json")
 
         function matchesFilters(opportunity) {
             const query = searchInput.value.trim().toLowerCase();
-            const selectedType = typeFilter.value;
             const selectedCategory = categoryFilter.value;
             const selectedGrade = gradeFilter.value;
 
@@ -80,14 +73,12 @@ fetch("all_opportunities.json")
                 opportunity.name,
                 opportunity.organization,
                 opportunity.description,
-                opportunity.type,
                 opportunity.eligibility,
                 opportunity.grade,
                 (opportunity.categories || []).join(" ")
             ].join(" ").toLowerCase();
 
             const matchesQuery = !query || searchableText.includes(query);
-            const matchesType = !selectedType || opportunity.type === selectedType;
             const matchesCategory = !selectedCategory || (opportunity.categories || []).includes(selectedCategory);
             function getGrades(gradeText) {
                 if (!gradeText) {
@@ -156,7 +147,7 @@ fetch("all_opportunities.json")
             const matchesGrade =
                 !selectedGrade ||
                 opportunityGrades.includes(selectedGradeNumber);
-                        return matchesQuery && matchesType && matchesCategory && matchesGrade;
+                        return matchesQuery && matchesCategory && matchesGrade;
         }   
 
         function renderOpportunities() {
@@ -180,7 +171,6 @@ fetch("all_opportunities.json")
                     "<h2>" + (opportunity.name || "Untitled Opportunity") + "</h2>" +
                     "<p>" + (opportunity.description || "") + "</p>" +
                     "<p><strong>Organization:</strong> " + (opportunity.organization || "Not listed") + "</p>" +
-                    "<p><strong>Type:</strong> " + (opportunity.type || "Not listed") + "</p>" +
                     "<p><strong>Categories:</strong> " + ((opportunity.categories || []).join(", ") || "Not listed") + "</p>" +
                     "<p><strong>Location:</strong> " + (opportunity.location || "Not listed") + "</p>" +
                     "<p><strong>Cost:</strong> " + (opportunity.cost || "Not listed") + "</p>" +
@@ -196,13 +186,11 @@ fetch("all_opportunities.json")
         }
 
         searchInput.addEventListener("input", renderOpportunities);
-        typeFilter.addEventListener("change", renderOpportunities);
         categoryFilter.addEventListener("change", renderOpportunities);
         gradeFilter.addEventListener("change", renderOpportunities);
 
         clearFiltersButton.addEventListener("click", () => {
             searchInput.value = "";
-            typeFilter.value = "";
             categoryFilter.value = "";
             gradeFilter.value = "";
             renderOpportunities();
