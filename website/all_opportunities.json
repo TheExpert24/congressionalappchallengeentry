@@ -1983,7 +1983,8 @@
     "type": "Other",
     "categories": [
       "Business",
-      "EconomicsCompetition"
+      "Economics",
+      "Competition"
     ],
     "location": "Philadelphia, PA, USA",
     "cost": "Free",
@@ -3589,5 +3590,264 @@
     "official_url": "https://www.youngwritersusa.com/contests/all-ages/story",
     "source_url": "",
     "slug": "young-writers-story-lab"
+  },
+  {
+    "name": "Doodle for Google",
+    "organization": "Google",
+    "description": "Each year, K-12 students dream up their interpretations of a creative theme, competing to display their artwork on the Google homepage.",
+    "categories": [
+      "Art",
+      "Competition",
+      "Scholarship"
+    ],
+    "location": "Online, USA",
+    "cost": "Free",
+    "deadline": "Not Listed",
+    "eligibility": "K-12",
+    "grade": "K-12",
+    "official_url": "https://doodles.google.com/d4g/#about",
+    "source_url": "https://doodles.google.com/d4g/#about",
+    "slug": "doodle-for-google"
+  },
+  {
+    "name": "National PTA Reflections",
+    "organization": "PTA",
+    "description": "National PTA has a long-standing commitment to arts education. For over 50 years, Reflections has helped students explore their own thoughts, feelings and ideas, develop artistic literacy, increase confidence and find a love for learning. The Reflections program provides opportunities for recognition and access to the arts which boosts student confidence and success in the arts and in life.",
+    "categories": [
+      "Art",
+      "Music",
+      "Photography",
+      "Competition"
+    ],
+    "location": "",
+    "cost": "Free",
+    "deadline": "Not Listed",
+    "eligibility": "K-12",
+    "grade": "K-12",
+    "official_url": "https://www.pta.org/home/programs/reflections",
+    "source_url": "https://www.pta.org/home/programs/reflections",
+    "slug": "national-pta-reflections"
+  },
+  {
+    "name": "Bow Seat Ocean Awareness Competition",
+    "organization": "Bow Seat",
+    "description": "The ocean has always been central to Bow Seat’s mission. Since the first Ocean Awareness Contest in 2012, we’ve asked students to explore ocean-related issues like marine species conservation, plastic pollution, and climate change. As our organization continues to evolve in new and exciting ways, we wanted to return to the topic that has captivated, moved, and activated tens of thousands of students who have participated in the Contest: the ocean! What value does the ocean bring to all of our lives? We’ve learned about the challenges that threaten the ocean, but why is it so important that we protect it?",
+    "categories": [],
+    "location": "Online, USA",
+    "cost": "Free",
+    "deadline": "Not listed",
+    "eligibility": "Ages 11-18",
+    "grade": "6-12",
+    "official_url": "https://bowseat.org/programs/ocean-awareness-contest/contest-overview/",
+    "source_url": "https://bowseat.org/programs/ocean-awareness-contest/contest-overview/",
+    "slug": "bow-seat-ocean-awareness-competition"
+  },
+  {
+    "name": "ESS Art Contest",
+    "organization": "ESS",
+    "description": "The ESS Art Contest is an annual celebration of creativity, talent, and student expression. Each year, winners from four grade groups are selected and recognized for their outstanding artwork, with winning pieces featured and celebrated across ESS channels. Winners receive a $500 American Express gift card, plus $500 for their school!",
+    "categories": [
+      "Art",
+      "Competition"
+    ],
+    "location": "Online, USA",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "K-12",
+    "grade": "K-12",
+    "official_url": "https://ess.com/art-contest/",
+    "source_url": "https://ess.com/art-contest/",
+    "slug": "ess-art-contest"
+  },
+  {
+    "name": "Cooper Hewitt Design Competition",
+    "organization": "Cooper Hewitt & Smithsonian Design Museum",
+    "description": "Cooper Hewitt, Smithsonian Design Museum launched the National High School Design Competition in 2016. Every year, students around the country are challenged to design a solution to a unique scenario, inspired by Cooper Hewitt’s rich collection and stimulating exhibitions.",
+    "categories": [
+      "Art",
+      "Competition"
+    ],
+    "location": "",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Grades 9-12",
+    "grade": "9-12",
+    "official_url": "http://cooperhewitt.org/design-competition/",
+    "source_url": "http://cooperhewitt.org/design-competition/",
+    "slug": "cooper-hewitt-design-competition"
+  },
+  {
+    "name": "Science Without Borders Challenge",
+    "organization": "Living Oceans Foundation",
+    "description": "The Science Without Borders® Challenge is an international art contest that teaches students about important ocean science and conservation issues. This annual competition engages students and teachers around the world, inspiring them to be creative while raising awareness of the need to preserve, protect, and restore the world’s oceans and aquatic resources—contributing to the overarching goals of the Khaled bin Sultan Living Oceans Foundation. The Challenge is free to enter, open to primary and secondary school students 11-19 years old, and scholarships of up to $500 are awarded to the winning entries.",
+    "categories": [
+      "Art",
+      "Science",
+      "Competition"
+    ],
+    "location": "International",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Ages 11-19",
+    "grade": "6-13",
+    "official_url": "https://www.livingoceansfoundation.org/science-without-borders-challenge/",
+    "source_url": "https://www.livingoceansfoundation.org/science-without-borders-challenge/",
+    "slug": "science-without-borders-challenge"
+  },
+  {
+    "name": "Lions International Peace Poster Contest",
+    "organization": "Lions",
+    "description": "For nearly four decades, the Lions International Peace Poster Contest has given children ages 11-13 the opportunity to share what peace means to them through art. Each year, Lions clubs around the world sponsor the contest in schools and organized youth groups, giving young people the opportunity to be recognized at local and international levels — and awarded a grand prize of US$5,000 — for their creativity in sharing their vision of the current year’s theme.",
+    "categories": [
+      "Art",
+      "Competition"
+    ],
+    "location": "International",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Ages 11-13",
+    "grade": "6-8",
+    "official_url": "https://www.lionsclubs.org/en/member-resource-center/marketing-events/events-programs/international-peace-contests/peace-poster-contest",
+    "source_url": "https://www.lionsclubs.org/en/member-resource-center/marketing-events/events-programs/international-peace-contests/peace-poster-contest",
+    "slug": "lions-international-peace-poster-contest"
+  },
+  {
+    "name": "Met High School Internship",
+    "organization": "The Metropolitan Museum",
+    "description": "The Met High School Internship Program offers paid opportunities for students who are in grades 10 and 11 or are obtaining their High School Equivalency and who, on the application deadline date, reside in and attend a high school or home school in either New York, New Jersey, or Connecticut. This program allows students to connect with art, museums, and creative professionals as they develop professional skills, network, and gain work experience.",
+    "categories": [
+      "Art",
+      "Internship"
+    ],
+    "location": "NY, NJ, CN",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Grades 10-11",
+    "grade": "10-11",
+    "official_url": "https://www.metmuseum.org/opportunities/internships/summer-internships-for-high-school-students",
+    "source_url": "https://www.metmuseum.org/opportunities/internships/summer-internships-for-high-school-students",
+    "slug": "met-high-school-internship"
+  },
+  {
+    "name": "NAHS Scholarships",
+    "organization": "NAHS",
+    "description": "Multiple scholarships for artistic pursuers.",
+    "categories": [
+      "Art",
+      "Scholarship"
+    ],
+    "location": "USA",
+    "cost": "Not Listed",
+    "deadline": "Not listed",
+    "eligibility": "Varies",
+    "grade": "University",
+    "official_url": "https://www.arteducators.org/nahs/nahs-scholarships/",
+    "source_url": "https://www.arteducators.org/nahs/nahs-scholarships/",
+    "slug": "nahs-scholarships"
+  },
+  {
+    "name": "NSAL Winston 2-D Visual Art Scholarships",
+    "organization": "NSAL",
+    "description": "In honor of Naomi Rabb Winston, NSAL established an annual scholarship fund for young visual artists between the ages of 16 and 22. Applicants must demonstrate exceptional talent and promise of future success. The scholarship funds are for private study, special training or personal advancement in the applicants’ chosen art fields. The funds can be used for college tuition and required art supplies, but not for housing, travel or personal expenses.",
+    "categories": [
+      "Art",
+      "Scholarship"
+    ],
+    "location": "USA",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Varies",
+    "grade": "Varies",
+    "official_url": "https://arts-nsalnatl.org/scholarships/winston-art-scholarships",
+    "source_url": "https://arts-nsalnatl.org/scholarships/winston-art-scholarships",
+    "slug": "nsal-winston-2-d-visual-art-scholarships"
+  },
+  {
+    "name": "CyberPatriot’s National Youth Cyber Defense Competition",
+    "organization": "CyberPatriot",
+    "description": "CyberPatriot’s National Youth Cyber Defense Competition is the world’s largest cybersecurity competition and is open to all schools and approved youth organizations. Before getting started with the registration process, review this competition overview to get a better understanding of the competition!",
+    "categories": [
+      "STEM",
+      "Computer Science",
+      "Competition"
+    ],
+    "location": "Online, USA / Bethesda, MD",
+    "cost": "$225",
+    "deadline": "October 1, 2026",
+    "eligibility": "Grades 6-12",
+    "grade": "6-12",
+    "official_url": "https://www.uscyberpatriot.org/competition-overview/",
+    "source_url": "https://www.uscyberpatriot.org/competition-overview/",
+    "slug": "cyberpatriot-s-national-youth-cyber-defense-competition"
+  },
+  {
+    "name": "Calico Informatics Competition",
+    "organization": "UC Berkeley",
+    "description": "The CALICO Informatics Competition is a high-school programming competition hosted by students at UC Berkeley. We create contest problems to promote the understanding of useful algorithms and encourage students to grow their problem-solving skills! To see some past problems, check out our Problem Bank.",
+    "categories": [
+      "STEM",
+      "Computer Science",
+      "Competition"
+    ],
+    "location": "Online, USA / Berkeley, California",
+    "cost": "Free",
+    "deadline": "TBD",
+    "eligibility": "From 9th grade up",
+    "grade": "9-old man",
+    "official_url": "https://calico.cs.berkeley.edu/",
+    "source_url": "https://calico.cs.berkeley.edu/",
+    "slug": "calico-informatics-competition"
+  },
+  {
+    "name": "International Economic Olympiad",
+    "organization": "IEO",
+    "description": "Annual competition for high school students in the field of economics.\nThe competition's activities are designed to stimulate creative\nproblem-solving skills among students interested\nin Economics, Business, and Finance.",
+    "categories": [
+      "Economics",
+      "Competition"
+    ],
+    "location": "International",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Grades 9-12",
+    "grade": "9-12",
+    "official_url": "https://ieo-official.org/",
+    "source_url": "https://ieo-official.org/",
+    "slug": "international-economic-olympiad"
+  },
+  {
+    "name": "High School Fed Challenge",
+    "organization": "Federal Reserve Bank of New York",
+    "description": "The Federal Reserve System High School Fed Challenge offers the opportunity for students to develop skills in teamwork, research, data literacy, and analytical writing. Student teams author economics research and pursue an opportunity to be selected for publication in the Journal of Future Economists.",
+    "categories": [
+      "Economics",
+      "Competition"
+    ],
+    "location": "Online, USA",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Grades 9-12",
+    "grade": "9-12",
+    "official_url": "https://www.newyorkfed.org/outreach-and-education/high-school/high-school-fed-challenge",
+    "source_url": "https://www.newyorkfed.org/outreach-and-education/high-school/high-school-fed-challenge",
+    "slug": "high-school-fed-challenge"
+  },
+  {
+    "name": "Bank of America Student Leaders® program",
+    "organization": "Bank of America",
+    "description": "Since 2004, Student Leaders® has been part of our ongoing commitment to youth employment and economic mobility. We’re helping prepare a pipeline of community-minded students to be successful in the workforce through leadership training and work experience.",
+    "categories": [
+      "Economics",
+      "Internship"
+    ],
+    "location": "USA",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Minimum Age of 18 + High School Diploma",
+    "grade": "12",
+    "official_url": "https://about.bankofamerica.com/en/making-an-impact/student-leaders",
+    "source_url": "https://about.bankofamerica.com/en/making-an-impact/student-leaders",
+    "slug": "bank-of-america-student-leaders-program"
   }
+
 ]
