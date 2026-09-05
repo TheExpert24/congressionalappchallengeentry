@@ -3848,6 +3848,77 @@
     "official_url": "https://about.bankofamerica.com/en/making-an-impact/student-leaders",
     "source_url": "https://about.bankofamerica.com/en/making-an-impact/student-leaders",
     "slug": "bank-of-america-student-leaders-program"
+  },
+  {
+    "name": "Envirothon",
+    "organization": "Envirothon",
+    "description": "The Envirothon® is an environmental and natural resources conservation problem-solving,  leadership experience and academic competition for secondary school (high school) students (grades 9-12 or ages 14-19) across the United States, Canada, China, and Singapore. Incorporating STEM (Science, Technology, Engineering, and Math) principles, hands-on learning, and outdoor field experiences, the Envirothon fosters student learning in the areas of AQUATIC ECOLOGY, FORESTRY, SOILS and LAND USE, WILDLIFE, and CURRENT ENVIRONMENTAL ISSUES.",
+    "categories": [
+      "Environment",
+      "Competition"
+    ],
+    "location": "International",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Grades 9-12 or Ages 14-18",
+    "grade": "9-12",
+    "official_url": "https://envirothon.org/",
+    "source_url": "https://envirothon.org/",
+    "slug": "envirothon"
+  },
+  {
+    "name": "President's Environment Youth Award",
+    "organization": "EPA",
+    "description": "EPA has ten regional offices across the country. The PEYA awards panel may select up to one winner in each age group, based on the evaluation criteria in Section 6. Applicants are welcome to include youth across multiple grade levels; however, the application will be categorized based on the applicant with the highest grade level. For example, if one applicant group consists of two 4th graders, one 3rd grader and one 6th grader, the application will be evaluated in the Grade 6-12 category.",
+    "categories": [
+      "Environment",
+      "Science",
+      "Competition"
+    ],
+    "location": "Online, USA",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Grades K-12",
+    "grade": "K-12",
+    "official_url": "https://www.epa.gov/education/presidents-environmental-youth-award",
+    "source_url": "https://www.epa.gov/education/presidents-environmental-youth-award",
+    "slug": "president-s-environment-youth-award"
+  },
+  {
+    "name": "River of Words Art and Poetry Competition",
+    "organization": "Saint Mary's College of California",
+    "description": "Our free, annual, international youth poetry and art contest — the largest in the world — inspires students ages 5 to 19 to translate their observations into creative expression.",
+    "categories": [
+      "Art",
+      "Environment",
+      "Competition",
+      "Writing"
+    ],
+    "location": "Online, USA",
+    "cost": "Not Listed",
+    "deadline": "",
+    "eligibility": "K-13",
+    "grade": "K-13",
+    "official_url": "https://www.stmarys-ca.edu/academics/schools/kalmanovitz-school-of-education/centers-institutes/center-environmental-literacy/river-of-words",
+    "source_url": "https://www.stmarys-ca.edu/academics/schools/kalmanovitz-school-of-education/centers-institutes/center-environmental-literacy/river-of-words",
+    "slug": "river-of-words-art-and-poetry-competition"
+  },
+  {
+    "name": "The Earth Prize",
+    "organization": "The Earth Prize",
+    "description": "The Earth Prize is an annual, global $100,000 environmental sustainability competition for students between the ages of 13 and 19, which rewards the teams whose projects have the most potential to address environmental issues.",
+    "categories": [
+      "Environment",
+      "Competition"
+    ],
+    "location": "Online, USA",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Ages 13-19",
+    "grade": "8-13",
+    "official_url": "https://www.theearthprize.org/",
+    "source_url": "https://www.theearthprize.org/",
+    "slug": "the-earth-prize"
   }
 
 ]
