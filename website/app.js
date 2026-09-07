@@ -191,7 +191,6 @@ fetch("all_opportunities.json")
                     "<p><strong>Categories:</strong> " + ((opportunity.categories || []).join(", ") || "Not listed") + "</p>" +
                     "<p><strong>Location:</strong> " + (opportunity.location || "N/A") + "</p>" +
                     "<p><strong>Cost:</strong> " + (opportunity.cost || "N/A") + "</p>" +
-                    "<p><strong>Deadline:</strong> " + (opportunity.deadline || "Not listed") + "</p>" +
                     "<p><strong>Eligibility:</strong> " + (opportunity.eligibility || "N/A") + "</p>" +
                     "<p><strong>Grade:</strong> " + (opportunity.grade || "N/A") + "</p>" +
                     (opportunity.official_url
