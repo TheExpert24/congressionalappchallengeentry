@@ -3,10 +3,6 @@ const searchInput = document.getElementById("searchInput");
 const categoryFilter = document.getElementById("categoryFilter");
 const gradeFilter = document.getElementById("gradeFilter");
 const clearFiltersButton = document.getElementById("clearFilters");
-const editDialog = document.getElementById("editDialog");
-const editForm = document.getElementById("editForm");
-const downloadJsonButton = document.getElementById("downloadJson");
-const resetSavedChangesButton = document.getElementById("resetSavedChanges");
 const saveStatus = document.getElementById("saveStatus");
 const storageKey = "congressional-app-opportunities";
 
@@ -250,19 +246,6 @@ fetch("all_opportunities.json")
 
                 const actions = document.createElement("div");
                 actions.className = "card-actions";
-
-                const editButton = document.createElement("button");
-                editButton.type = "button";
-                editButton.textContent = "Edit";
-                editButton.addEventListener("click", () => openEditor(opportunity));
-
-                const removeButton = document.createElement("button");
-                removeButton.type = "button";
-                removeButton.className = "remove-button";
-                removeButton.textContent = "Remove";
-                removeButton.addEventListener("click", () => removeOpportunity(opportunity));
-
-                actions.append(editButton, removeButton);
                 card.appendChild(actions);
 
                 container.appendChild(card);
@@ -299,47 +282,6 @@ fetch("all_opportunities.json")
                 renderOpportunities();
             }
         }
-
-        editForm.addEventListener("submit", event => {
-            event.preventDefault();
-            const index = Number(editForm.dataset.index);
-            const data = new FormData(editForm);
-
-            if (!uniqueOpportunities[index]) {
-                return;
-            }
-
-            ["name", "organization", "description", "location", "cost", "deadline", "eligibility", "grade", "official_url", "source_url", "slug"].forEach(field => {
-                uniqueOpportunities[index][field] = data.get(field).trim();
-            });
-
-            uniqueOpportunities[index].categories = data.get("categories")
-                .split(",")
-                .map(category => category.trim())
-                .filter(Boolean);
-
-            saveOpportunities();
-            editDialog.close();
-            renderOpportunities();
-        });
-
-        document.getElementById("closeEdit").addEventListener("click", () => editDialog.close());
-        document.getElementById("cancelEdit").addEventListener("click", () => editDialog.close());
-
-        downloadJsonButton.addEventListener("click", () => {
-            const blob = new Blob([JSON.stringify(uniqueOpportunities, null, 2)], { type: "application/json" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "all_opportunities.json";
-            link.click();
-            URL.revokeObjectURL(link.href);
-            saveStatus.textContent = "Downloaded the current opportunity list.";
-        });
-
-        resetSavedChangesButton.addEventListener("click", () => {
-            localStorage.removeItem(storageKey);
-            window.location.reload();
-        });
 
         searchInput.addEventListener("input", renderOpportunities);
         categoryFilter.addEventListener("change", renderOpportunities);
