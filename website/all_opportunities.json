@@ -91,8 +91,7 @@
     "type": "Competition",
     "categories": [
       "Mathematics",
-      "Competition",
-      "Tournament"
+      "Competition"
     ],
     "location": "",
     "cost": "",
@@ -111,8 +110,7 @@
     "type": "Competition",
     "categories": [
       "Mathematics",
-      "Competition",
-      "Tournament"
+      "Competition"
     ],
     "location": "",
     "cost": "",
@@ -132,9 +130,7 @@
     "categories": [
       "STEM",
       "Science",
-      "Competition",
-      "Tournament",
-      "Entrepreneurship"
+      "Competition"
     ],
     "location": "",
     "cost": "",
@@ -230,7 +226,6 @@
     "type": "Competition",
     "categories": [
       "Competition",
-      "Tournament",
       "Debate"
     ],
     "location": "",
@@ -317,7 +312,7 @@
     "cost": "$30",
     "deadline": "Coming soon",
     "eligibility": "Up to grade 12",
-    "grade": "",
+    "grade": "K-12",
     "age": "",
     "official_url": "https://cmimc.com",
     "source_url": "https://extracurricularhub.com/extracurriculars/carnegie-mellon-informatics-mathematics-competition-cmimc",
@@ -747,7 +742,7 @@
     "cost": "Free",
     "deadline": "September 16, 2026",
     "eligibility": "Ages 13-18",
-    "grade": "",
+    "grade": "8-12",
     "age": "",
     "official_url": "https://breakthroughjuniorchallenge.org",
     "source_url": "https://extracurricularhub.com/extracurriculars/breakthrough-junior-challenge",
@@ -2472,8 +2467,7 @@
     "description": "IVY LEAGUE MODEL UNITED NATIONS CONFERENCE, UNIVERSITY OF PENNSYLVANIA Open school-delegation Model UN conference with 28 committees at the Philadelphia Marriott Downtown, January 21-24, 2027. Ivy League Model United Nations Conference XLIII (ILMUNC) is a leadership program run by Ivy League Model United Nations Conference, University of Pennsylvania for high school students. The format is in person.",
     "type": "Other",
     "categories": [
-      "Debate",
-      "Model UN"
+      "Debate"
     ],
     "location": "Philadelphia, PA, USA",
     "cost": "$85",
@@ -2586,8 +2580,7 @@
     "description": "YALE INTERNATIONAL RELATIONS ASSOCIATION Three-day in-person high-school Model UN conference held in a different European city, with Yale-student-chaired committees, crisis simulations, panels, workshops, and awards. Yale Model United Nations Europe (YMUNE) is a leadership program run by Yale International Relations Association for high school students. The format is in person.",
     "type": "Other",
     "categories": [
-      "Debate",
-      "Model UN"
+      "Debate"
     ],
     "location": "New Haven, Connecticut, USA",
     "cost": "$125",
@@ -2606,7 +2599,6 @@
     "type": "Other",
     "categories": [
       "STEM",
-      "Psychology",
       "Competition",
       "Writing",
       "Science"
@@ -2702,8 +2694,7 @@
     "description": "U.S. grades 9-12 research-and-writing contest on political courage; the 2027 cycle opens September 1, 2026, but its closing-date field is still an official placeholder. John F.",
     "type": "Other",
     "categories": [
-      "Writing",
-      "Politics"
+      "Writing"
     ],
     "location": "USA",
     "cost": "Details not listed · Check official site",
@@ -2890,7 +2881,9 @@
     "description": "Open 2027 C-SPAN documentary contest for grades 6-12 worldwide, with a January 20 deadline and $250-$5,000 main student prizes. C-SPAN StudentCam Documentary Competition is a research program run by C-SPAN for students in grades 6-12. The format is online.",
     "type": "Other",
     "categories": [
-      "Film"
+      "Film",
+      "Journalism",
+      "Competition"
     ],
     "location": "Online, Remote, USA",
     "cost": "Details not listed · Check official site",
@@ -2901,26 +2894,6 @@
     "official_url": "https://www.studentcam.org",
     "source_url": "https://extracurricularhub.com/extracurriculars/c-span-studentcam",
     "slug": "c-span-studentcam-documentary-competition"
-  },
-  {
-    "name": "JEA National Student Media Contests - Fall 2026",
-    "organization": "Journalism Education Association",
-    "description": "Fifty-category high-school journalism contest at the Fall 2026 national convention in Orlando; registration opens Aug. 26 and closes Oct. 20 at 1 p.m.",
-    "type": "Other",
-    "categories": [
-      "Journalism",
-      "Competition",
-      "Writing"
-    ],
-    "location": "Various, Various, USA",
-    "cost": "$50",
-    "deadline": "October 20, 2026",
-    "eligibility": "Grades 9-12",
-    "grade": "9-12",
-    "age": "",
-    "official_url": "https://fall.journalismconvention.org/jea-contests",
-    "source_url": "https://extracurricularhub.com/extracurriculars/jea-journalism-awards",
-    "slug": "jea-national-student-media-contests-fall-2026"
   },
   {
     "name": "Open Letters: Our Opinion-Writing Contest",
@@ -2974,7 +2947,7 @@
     "cost": "$8",
     "deadline": "Coming soon",
     "eligibility": "Up to grade 12",
-    "grade": "",
+    "grade": "K-12",
     "age": "",
     "official_url": "https://quillandscroll.org/writing-visual-multimedia-contest",
     "source_url": "https://extracurricularhub.com/extracurriculars/quill-scroll-awards",
@@ -3435,7 +3408,11 @@
     "organization": "Columbia University School of Professional Studies Pre-College Programs",
     "description": "COLUMBIA UNIVERSITY SCHOOL OF PROFESSIONAL STUDIES PRE-COLLEGE PROGRAMS Columbia non-credit summer course for rising grade 9 through current grade 12 students on international human-rights law, enforcement and advocacy; Summer 2027 details are pending. Application information expected in late November 2026 Human Rights in the 21st Century: Challenges in International Law… is a program run by Columbia University School of Professional Studies Pre-College Programs. The format is hybrid.",
     "type": "Other",
-    "categories": [],
+    "categories": [
+      "Law",
+      "Writing",
+      "Competition"
+    ],
     "location": "USA",
     "cost": "Details not listed · Check official site",
     "deadline": "Coming soon",
@@ -3528,8 +3505,8 @@
     "categories": [
       "Writing",
       "Economics",
-      "Politics",
-      "STEM"
+      "Law",
+      "Competition"
     ],
     "location": "",
     "cost": "",
@@ -3919,6 +3896,163 @@
     "official_url": "https://www.theearthprize.org/",
     "source_url": "https://www.theearthprize.org/",
     "slug": "the-earth-prize"
+  },
+  {
+    "name": "Local Letters for Global Change",
+    "organization": "Pulitzer Center",
+    "description": "K-12 students: Make your voice heard this fall by writing a letter to a local decisionmaker that explains a global issue that matters to you, shows how it connects to your local community, and proposes a solution. Through this contest, students can practice global citizenship, civic action, and persuasive writing, all while exploring the underreported issues that matter to them through Pulitzer Center news stories.",
+    "categories": [
+      "Journalism",
+      "Competition"
+    ],
+    "location": "Online, USA",
+    "cost": "Free",
+    "deadline": "Not Listed",
+    "eligibility": "We welcome entries from all current K-12 students across the globe. Letters may be written in English and/or Spanish.",
+    "grade": "K-12",
+    "official_url": "https://pulitzercenter.org/builder/lesson/local-letters-global-change-pulitzer-center-writing-contest",
+    "source_url": "https://pulitzercenter.org/builder/lesson/local-letters-global-change-pulitzer-center-writing-contest",
+    "slug": "local-letters-for-global-change"
+  },
+  {
+    "name": "NPR Student Podcast Challenge",
+    "organization": "NPR",
+    "description": "Capturing a memory, recording your loved one's story in their own voice or sharing something new you've learned – podcasting can serve as a vehicle for all these goals and more. And, of course, it can be a lot of fun, too!",
+    "categories": [
+      "Journalism",
+      "Film",
+      "Competition"
+    ],
+    "location": "Online, USA",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Grades 4-12",
+    "grade": "4-12",
+    "official_url": "https://www.npr.org/series/662609200/npr-student-podcast-challenge",
+    "source_url": "https://www.npr.org/series/662609200/npr-student-podcast-challenge",
+    "slug": "npr-student-podcast-challenge"
+  },
+  {
+    "name": "National High School Mock Trial Championship",
+    "organization": "National Mock Trial",
+    "description": "The National Mock Trial Championship was initiated in 1984 in Des Moines, Iowa, with teams from Illinois, Iowa, Minnesota, Nebraska, and Wisconsin participating. After the success of the tournament in Iowa, more states became interested in participating and the tournament became billed as an \"All-State\" Tournament. The competition then moved to Lincoln, Nebraska (1985), and involved 10 states.",
+    "categories": [
+      "Law",
+      "Competition"
+    ],
+    "location": "Varies - Check Website for More Info",
+    "cost": "$700",
+    "deadline": "Not Listed",
+    "eligibility": "9-12",
+    "grade": "9-12",
+    "official_url": "https://www.nationalmocktrial.org/about/general-information/",
+    "source_url": "https://www.nationalmocktrial.org/about/general-information/",
+    "slug": "national-high-school-mock-trial-championship"
+  },
+  {
+    "name": "Columbia Undergraduate Law Review High School Essay Contest",
+    "organization": "Columbia Undergraduate Law Review",
+    "description": "Your response must make reference to at least one court case or legal document. You are welcome to use the examples mentioned in the prompt context, but are not limited or expected to do so. You can look at federal or international cases as well. Please respond to the prompt in no more than 1,500 words. Make sure to cite all information that is not common knowledge in Chicago citation format with a works cited page at the very end. All essays should be submitted as PDF files. Each contestant may only submit one essay for consideration.",
+    "categories": [
+      "Law",
+      "Writing",
+      "Competition"
+    ],
+    "location": "Online, USA",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Grades 9-12",
+    "grade": "9-12",
+    "official_url": "https://www.culawreview.org/high-school-essay-contest",
+    "source_url": "https://www.culawreview.org/high-school-essay-contest",
+    "slug": "columbia-undergraduate-law-review-high-school-essay-contest"
+  },
+  {
+    "name": "Princeton Legal Journal High School Essay Contest",
+    "organization": "Princeton Legal Journal",
+    "description": "Each year, the Princeton Legal Journal hosts an essay contest for high school students focused around a new, timely theme. The top three essays will be published by the Princeton Legal Journal.",
+    "categories": [
+      "Law",
+      "Writing",
+      "Competition"
+    ],
+    "location": "Online, USA",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Grades 9-12",
+    "grade": "9-12",
+    "official_url": "https://legaljournal.princeton.edu/high-school-essay-contest/",
+    "source_url": "https://legaljournal.princeton.edu/high-school-essay-contest/",
+    "slug": "princeton-legal-journal-high-school-essay-contest"
+  },
+  {
+    "name": "Math Kangeroo Competiton",
+    "organization": "Math Kangeroo USA",
+    "description": "The Math Kangaroo Competition is an international mathematics contest designed to inspire students in grades K–12 to develop problem-solving skills and mathematical thinking. Each year, tens of thousands of students from the United States, along with over six million participants from around the world, take part in Math Kangaroo.",
+    "categories": [
+      "Mathematics",
+      "Competition"
+    ],
+    "location": "Not Listed",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Grades K-12",
+    "grade": "K-12",
+    "official_url": "https://mathkangaroo.org/mks/math-kangaroo-competition/",
+    "source_url": "https://mathkangaroo.org/mks/math-kangaroo-competition/",
+    "slug": "math-kangeroo-competiton"
+  },
+  {
+    "name": "AMC",
+    "organization": "Mathematical Association of America",
+    "description": "Founded in 1950, the AMC is the preeminent math competition for students K-12. Today, over 300,000 students in 50 states and over 30 countries take the AMC to bolster their confidence and passion for math.\nEmpowering the Next Generation of Problem Solvers\nThe AMC program is more than just a competition; it’s a national effort to strengthen the mathematical capabilities of our next generation of innovators. By challenging students with engaging problems, the AMC sets the stage for lifelong mathematical exploration, discovery, and achievement.",
+    "categories": [
+      "Mathematics",
+      "Competition"
+    ],
+    "location": "Online, USA",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Grades 6-12",
+    "grade": "6-12",
+    "official_url": "https://maa.org/student-programs/amc/",
+    "source_url": "https://maa.org/student-programs/amc/",
+    "slug": "amc"
+  },
+  {
+    "name": "Harvard-MIT Mathematics Tournament",
+    "organization": "Harvard University, MIT",
+    "description": "To encourage interest in math\nTo engage a diverse community of students and support them in reaching beyond traditional math curriculums\nTo provide insight into what a future in math may look like",
+    "categories": [
+      "Mathematics",
+      "Competition"
+    ],
+    "location": "Harvard, MA and Cambridge, MA",
+    "cost": "Not Listed",
+    "deadline": "Not Listed",
+    "eligibility": "Grades 9-12",
+    "grade": "9-12",
+    "official_url": "https://www.hmmt.org/",
+    "source_url": "https://www.hmmt.org/",
+    "slug": "harvard-mit-mathematics-tournament"
+  },
+  {
+    "name": "US Medicine & Disease Olympiad (USMDO)",
+    "organization": "USMDO",
+    "description": "The USMDO, the US Medicine and Disease Olympiad, is America’s qualifying competition for the IMDO, the International Medicine and Disease Olympiad. The USMDO consists of one online exam that tests knowledge in the following three general areas of medicine-related Biology: 1) Cell Biology and Genetics, 2) Human Physiology, 3) Human Disease. The exam contains 160 multiple-choice questions, to be finished within 2 hours. Participants have a 12-hour exam period to login and begin taking the exam.",
+    "categories": [
+      "STEM",
+      "Science",
+      "Medicine",
+      "Competition"
+    ],
+    "location": "Online, USA",
+    "cost": "Free",
+    "deadline": "Not Listed",
+    "eligibility": "Grades 9-12",
+    "grade": "9-12",
+    "official_url": "https://www.usmdo.org/",
+    "source_url": "https://www.usmdo.org/",
+    "slug": "us-medicine-disease-olympiad-usmdo"
   }
-
 ]
