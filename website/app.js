@@ -85,17 +85,68 @@ fetch("all_opportunities.json")
             const query = searchInput.value.trim().toLowerCase();
             const selectedCategory = categoryFilter.value;
             const selectedGrade = gradeFilter.value;
-
             const searchableText = [
                 opportunity.name,
                 opportunity.organization,
                 opportunity.description,
                 opportunity.eligibility,
                 opportunity.grade,
-                (opportunity.categories || []).join(" ")
+                opportunity.location,
+                opportunity.cost,
+                opportunity.categories
             ].join(" ").toLowerCase();
 
-            const matchesQuery = !query || searchableText.includes(query);
+            const searchAliases = {
+                math: ["math", "mathematics"],
+                mathematics: ["math", "mathematics"],
+                competition: ["competition", "competitions", "contest", "contests", "tournament", "tournaments"],
+                competitions: ["competition", "competitions", "contest", "contests", "tournament", "tournaments"],
+                contest: ["competition", "competitions", "contest", "contests", "tournament", "tournaments"],
+                contests: ["competition", "competitions", "contest", "contests", "tournament", "tournaments"],
+                tournament: ["competition", "competitions", "contest", "contests", "tournament", "tournaments"],
+                tournaments: ["competition", "competitions", "contest", "contests", "tournament", "tournaments"],
+                coding: ["coding", "computer science", "programming"],
+                code: ["coding", "computer science", "programming"],
+                programming: ["coding", "computer science", "programming"],
+                cs: ["computer science", "coding", "programming"],
+                computers: ["computer science", "coding", "programming"],
+                robotics: ["robotics", "robot", "engineering", "stem"],
+                robot: ["robotics", "robot", "engineering", "stem"],
+                science: ["science", "stem"],
+                engineering: ["engineering", "stem"],
+                stem: ["stem", "science", "technology", "engineering", "mathematics"],
+                technology: ["technology", "computer science", "stem"],
+                art: ["art", "arts", "visual arts"],
+                arts: ["art", "arts", "visual arts"],
+                music: ["music", "performing arts"],
+                writing: ["writing", "literature", "english"],
+                english: ["english", "writing", "literature"],
+                reading: ["reading", "literature", "english"],
+                debate: ["debate", "public speaking"],
+                speaking: ["public speaking", "debate"],
+                volunteering: ["volunteering", "community service"],
+                volunteer: ["volunteering", "community service"],
+                service: ["community service", "volunteering"],
+                research: ["research", "science"],
+                internship: ["internship", "internships"],
+                internships: ["internship", "internships"],
+                club: ["club", "organization"],
+                clubs: ["club", "organization"],
+                program: ["program", "programs"],
+                programs: ["program", "programs"]
+            };
+
+            const queryWords = query
+                .split(/\s+/)
+                .map(word => word.replace(/[^\w-]/g, ""))
+                .filter(Boolean);
+
+            const matchesQuery = !query || queryWords.every(word => {
+                const aliases = searchAliases[word] || [word];
+
+                return aliases.some(alias => searchableText.includes(alias));
+            });
+
             const matchesCategory = !selectedCategory || (opportunity.categories || []).includes(selectedCategory);
             function getGrades(gradeText) {
                 if (!gradeText) {
