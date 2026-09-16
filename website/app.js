@@ -241,12 +241,22 @@ fetch("all_opportunities.json")
                     "<p><strong>Eligibility:</strong> " + (opportunity.eligibility || "N/A") + "</p>" +
                     "<p><strong>Grade:</strong> " + (opportunity.grade || "N/A") + "</p>" +
                     (opportunity.official_url
-                        ? "<a href='" + opportunity.official_url + "' target='_blank'>Official Website</a>"
+                        ? "<a href='" + opportunity.official_url + "' target='_blank' rel='noopener' class='official-link' data-slug='" + opportunity.slug + "'>Official Website</a>"
                         : "");
 
                 const actions = document.createElement("div");
                 actions.className = "card-actions";
                 card.appendChild(actions);
+                const officialLink = card.querySelector(".official-link");
+                if (officialLink) {
+                    officialLink.addEventListener("click", () => {
+                        fetch("/api/click/" + encodeURIComponent(opportunity.slug), {
+                            method: "POST"
+                        }).catch(error => {
+                            console.error("error recording click:", error);
+                        });
+                    });
+                }
 
                 container.appendChild(card);
             });

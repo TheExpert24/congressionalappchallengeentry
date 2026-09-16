@@ -1,0 +1,13 @@
+{
+  "name": "next-gen-opportunities",
+  "version": "1.0.0",
+  "description": "Next Gen Opportunities",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongodb": "^6.18.0"
+  }
+}

@@ -17,3 +17,5 @@ new_courses.json
 opportunities.json
 #readme
 README.md
+#.env
+.env
