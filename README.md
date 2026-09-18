@@ -2,7 +2,7 @@
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-yellow" />
-  <img alt="HTML5" src="https://img.shields.io/badge/HTML-5-orange" />
+  <img alt="HTML5" src="https://img.shields.io/badge/HTML5-orange" />
   <img alt="CSS" src="https://img.shields.io/badge/CSS-purple" />
   <img alt="Python" src="https://img.shields.io/badge/Python-blue" />
   <img alt="JSON" src="https://img.shields.io/badge/JSON-green" />
