@@ -1,6 +1,5 @@
 <h1 align="center">Next Gen Opportunities</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-yellow" />
   <img alt="HTML5" src="https://img.shields.io/badge/HTML5-orange" />
   <img alt="CSS" src="https://img.shields.io/badge/CSS-purple" />
