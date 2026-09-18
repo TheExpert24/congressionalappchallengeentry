@@ -6,6 +6,7 @@
   <img alt="CSS" src="https://img.shields.io/badge/CSS-purple" />
   <img alt="Python" src="https://img.shields.io/badge/Python-blue" />
   <img alt="JSON" src="https://img.shields.io/badge/JSON-green" />
+  <img alt="Playwright" src="https://img.shields.io/badge/Playwright-Webscraper-red" />
 </p>
 
 > Next Gen Opportunities provides a database of free or low-cost opportunities for students grades K-12 in the United States, sorted by grade level and category.
