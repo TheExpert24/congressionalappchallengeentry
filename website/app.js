@@ -5,7 +5,18 @@ const gradeFilter = document.getElementById("gradeFilter");
 const clearFiltersButton = document.getElementById("clearFilters");
 const saveStatus = document.getElementById("saveStatus");
 const storageKey = "congressional-app-opportunities";
+const starredKey = "next-gen-starred";
 
+const starredOpportunities = new Set(
+    JSON.parse(localStorage.getItem(starredKey) || "[]")
+);
+
+function saveStarred() {
+    localStorage.setItem(
+        starredKey,
+        JSON.stringify([...starredOpportunities])
+    );
+}
 fetch("all_opportunities.json")
     .then(response => {
         if (!response.ok) {
@@ -229,9 +240,13 @@ fetch("all_opportunities.json")
 
             filtered.forEach(opportunity => {
                 const card = document.createElement("div");
-
                 card.className = "opportunity-card";
-                card.innerHTML = 
+                const slug = opportunity.slug || opportunity.name;
+                const isStarred = starredOpportunities.has(slug);
+                card.innerHTML =
+                    "<button class='star-button" + (isStarred ? " starred" : "") + "' type='button'>" +
+                        (isStarred ? "★" : "☆") +
+                    "</button>" +
                     "<h2>" + (opportunity.name || "Untitled Opportunity") + "</h2>" +
                     "<p>" + (opportunity.description || "") + "</p>" +
                     "<p><strong>Organization:</strong> " + (opportunity.organization || "Not listed") + "</p>" +
@@ -247,6 +262,16 @@ fetch("all_opportunities.json")
                 const actions = document.createElement("div");
                 actions.className = "card-actions";
                 card.appendChild(actions);
+                const starButton = card.querySelector(".star-button");
+                starButton.addEventListener("click", () => {
+                    if (starredOpportunities.has(slug)) {
+                        starredOpportunities.delete(slug);
+                    } else {
+                        starredOpportunities.add(slug);
+                    }
+                    saveStarred();
+                    renderOpportunities();
+                });
                 const officialLink = card.querySelector(".official-link");
                 if (officialLink) {
                     officialLink.addEventListener("click", () => {

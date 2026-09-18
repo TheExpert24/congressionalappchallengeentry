@@ -420,7 +420,15 @@ dialog::backdrop {
     border-radius: 8px;
     font-weight: 600;
 }
-
+.starred-opportunities-button {
+    display: inline-block;
+    padding: 10px 16px;
+    background: #6b4f3a;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
 .top-opportunities-button:hover {
     background: #513a2b;
 }
@@ -721,4 +729,33 @@ dialog::backdrop {
 
 .podium-medal.bronze svg path:last-child {
     fill: #e7a15d;
+}
+.star-button {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    border: none;
+    background: transparent;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    color: #aaa;
+    padding: 0;
+}
+
+.star-button.starred {
+    color: #f5c542;
+}
+
+.star-button:hover {
+    color: #f5c542;
+}
+
+.opportunity-card {
+    position: relative;
+}
+#starredOpportunities {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 18px;
 }
