@@ -26,7 +26,7 @@ npm start
 
 ## Authors
 
- **Vajra Vanukuri and Jules Miller**
+ **Jules Miller and Vajra Vanukuri**
 
 * Website: https://nixoninc.tech
-* Github: [TheExpert24 and thejavamonster]
+* Github: TheExpert24 and thejavamonster
