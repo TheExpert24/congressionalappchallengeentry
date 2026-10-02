@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "name": "FIRST LEGO League",
     "organization": "FIRST",
@@ -666,26 +666,6 @@
     "official_url": "https://www.summiteducation.org/ssf",
     "source_url": "https://extracurricularhub.com/extracurriculars/summit-stem-fellowship-ssf",
     "slug": "summit-stem-fellowship-ssf"
-  },
-  {
-    "name": "CodeCombat Championship (legacy format; current identity unconfirmed)",
-    "organization": "CodeCombat",
-    "description": "CodeCombat's AI League remains active, but staff retired separate championship arenas and no current standalone CodeCombat Championship matches the legacy record. CodeCombat Championship (legacy format; current identity unconfirmed) is a competition run by CodeCombat for students in grades 6-12. The format is online.",
-    "type": "Other",
-    "categories": [
-      "STEM",
-      "Competition",
-      "Computer Science"
-    ],
-    "location": "Multiple, Various, International",
-    "cost": "Details not listed · Check official site",
-    "deadline": "Coming soon",
-    "eligibility": "Grades 6-12",
-    "grade": "6-12",
-    "age": "",
-    "official_url": "https://codecombat.com/ai-league",
-    "source_url": "https://extracurricularhub.com/extracurriculars/usa-code-combat",
-    "slug": "codecombat-championship-legacy-format-current-identity-unconfirmed"
   },
   {
     "name": "USA Computing Olympiad (USACO)",
@@ -1534,26 +1514,6 @@
     "official_url": "https://www.aapt.org/Programs/PhysicsBowl",
     "source_url": "https://extracurricularhub.com/extracurriculars/aapt-physicsbowl",
     "slug": "aapt-physicsbowl"
-  },
-  {
-    "name": "American Astronomical Society Scholarships (invalid legacy listing)",
-    "organization": "American Astronomical Society",
-    "description": "The American Astronomical Society explicitly says it offers no scholarships; this high-school scholarship listing has no real application and should be unpublished. American Astronomical Society Scholarships (invalid legacy listing) is a scholarship run by American Astronomical Society for high school seniors. The format is online.",
-    "type": "Other",
-    "categories": [
-      "STEM",
-      "Scholarship",
-      "Science"
-    ],
-    "location": "Multiple, Various, USA",
-    "cost": "Details not listed · Check official site",
-    "deadline": "Not applicable",
-    "eligibility": "Grade 12",
-    "grade": "12",
-    "age": "",
-    "official_url": "https://aas.org/faq",
-    "source_url": "https://extracurricularhub.com/extracurriculars/aas-astronomy-scholarship",
-    "slug": "american-astronomical-society-scholarships-invalid-legacy-listing"
   },
   {
     "name": "AAPT High School Physics Photo Contest",
