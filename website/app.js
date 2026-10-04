@@ -17,6 +17,7 @@ function saveStarred() {
         JSON.stringify([...starredOpportunities])
     );
 }
+
 fetch("all_opportunities.json")
     .then(response => {
         if (!response.ok) {
@@ -62,7 +63,15 @@ fetch("all_opportunities.json")
 
         populateSelect(
             categoryFilter,
-            Array.from(new Set(uniqueOpportunities.flatMap(opportunity => opportunity.categories || []))).filter(Boolean).sort()
+            Array.from(
+                new Set(
+                    uniqueOpportunities.flatMap(
+                        opportunity => opportunity.categories || []
+                    )
+                )
+            )
+                .filter(Boolean)
+                .sort()
         );
 
         const grades = [
@@ -88,152 +97,616 @@ fetch("all_opportunities.json")
             gradeFilter.appendChild(option);
         });
 
-        function matchesFilters(opportunity) {
-            const query = searchInput.value.trim().toLowerCase();
-            const selectedCategory = categoryFilter.value;
-            const selectedGrade = gradeFilter.value;
-            const searchableText = [
-                opportunity.name,
-                opportunity.organization,
-                opportunity.description,
-                opportunity.eligibility,
-                opportunity.grade,
-                opportunity.location,
-                opportunity.cost,
-                opportunity.categories
-            ].join(" ").toLowerCase();
+        const searchConcepts = [
+            {
+                aliases: [
+                    "computer science",
+                    "computer-science",
+                    "coding",
+                    "programming",
+                    "cs"
+                ],
+                categories: [
+                    "computer science",
+                    "coding",
+                    "programming",
+                    "software"
+                ],
+                exclude: []
+            },
+            {
+                aliases: [
+                    "science",
+                    "biology",
+                    "chemistry",
+                    "physics",
+                    "earth science",
+                    "life science",
+                    "environmental science",
+                    "natural science"
+                ],
+                categories: [
+                    "science",
+                    "biology",
+                    "chemistry",
+                    "physics",
+                    "earth science",
+                    "life science",
+                    "environmental science",
+                    "natural science"
+                ],
+                exclude: ["computer science"]
+            },
+            {
+                aliases: [
+                    "mathematics",
+                    "math"
+                ],
+                categories: [
+                    "math",
+                    "mathematics"
+                ],
+                exclude: []
+            },
+            {
+                aliases: [
+                    "competition",
+                    "competitions",
+                    "contest",
+                    "contests",
+                    "tournament",
+                    "tournaments",
+                    "olympiad",
+                    "olympiads",
+                    "challenge",
+                    "challenges"
+                ],
+                categories: [
+                    "competition",
+                    "competitions",
+                    "contest",
+                    "contests",
+                    "tournament",
+                    "tournaments",
+                    "olympiad",
+                    "olympiads",
+                    "challenge",
+                    "challenges"
+                ],
+                exclude: []
+            },
+            {
+                aliases: [
+                    "robotics",
+                    "robot",
+                    "robots"
+                ],
+                categories: [
+                    "robotics",
+                    "robot",
+                    "robots"
+                ],
+                exclude: []
+            },
+            {
+                aliases: [
+                    "engineering",
+                    "engineer"
+                ],
+                categories: [
+                    "engineering",
+                    "engineer"
+                ],
+                exclude: []
+            },
+            {
+                aliases: [
+                    "stem"
+                ],
+                categories: [
+                    "stem",
+                    "science",
+                    "technology",
+                    "engineering",
+                    "math",
+                    "mathematics"
+                ],
+                exclude: []
+            },
+            {
+                aliases: [
+                    "technology",
+                    "tech"
+                ],
+                categories: [
+                    "technology",
+                    "tech"
+                ],
+                exclude: []
+            },
+            {
+                aliases: [
+                    "art",
+                    "arts",
+                    "visual arts"
+                ],
+                categories: [
+                    "art",
+                    "arts",
+                    "visual arts"
+                ],
+                exclude: []
+            },
+            {
+                aliases: [
+                    "music",
+                    "performing arts"
+                ],
+                categories: [
+                    "music",
+                    "performing arts"
+                ],
+                exclude: []
+            },
+            {
+                aliases: [
+                    "writing",
+                    "literature",
+                    "english"
+                ],
+                categories: [
+                    "writing",
+                    "literature",
+                    "english"
+                ],
+                exclude: []
+            },
+            {
+                aliases: [
+                    "reading"
+                ],
+                categories: [
+                    "reading",
+                    "literature",
+                    "english"
+                ],
+                exclude: []
+            },
+            {
+                aliases: [
+                    "debate",
+                    "public speaking"
+                ],
+                categories: [
+                    "debate",
+                    "public speaking"
+                ],
+                exclude: []
+            },
+            {
+                aliases: [
+                    "volunteering",
+                    "volunteer",
+                    "community service",
+                    "service"
+                ],
+                categories: [
+                    "volunteering",
+                    "community service",
+                    "service"
+                ],
+                exclude: []
+            },
+            {
+                aliases: [
+                    "research",
+                    "research program",
+                    "research opportunity"
+                ],
+                categories: [
+                    "research"
+                ],
+                exclude: []
+            },
+            {
+                aliases: [
+                    "internship",
+                    "internships"
+                ],
+                categories: [
+                    "internship",
+                    "internships"
+                ],
+                exclude: []
+            },
+            {
+                aliases: [
+                    "program",
+                    "programs",
+                    "academy",
+                    "initiative"
+                ],
+                categories: [
+                    "program",
+                    "programs",
+                    "academy",
+                    "initiative"
+                ],
+                exclude: []
+            }
+        ];
 
-            const searchAliases = {
-                math: ["math", "mathematics"],
-                mathematics: ["math", "mathematics"],
-                competition: ["competition", "competitions", "contest", "contests", "tournament", "tournaments"],
-                competitions: ["competition", "competitions", "contest", "contests", "tournament", "tournaments"],
-                contest: ["competition", "competitions", "contest", "contests", "tournament", "tournaments"],
-                contests: ["competition", "competitions", "contest", "contests", "tournament", "tournaments"],
-                tournament: ["competition", "competitions", "contest", "contests", "tournament", "tournaments"],
-                tournaments: ["competition", "competitions", "contest", "contests", "tournament", "tournaments"],
-                coding: ["coding", "computer science", "programming"],
-                code: ["coding", "computer science", "programming"],
-                programming: ["coding", "computer science", "programming"],
-                cs: ["computer science", "coding", "programming"],
-                computers: ["computer science", "coding", "programming"],
-                robotics: ["robotics", "robot", "engineering", "stem"],
-                robot: ["robotics", "robot", "engineering", "stem"],
-                science: ["science", "stem"],
-                engineering: ["engineering", "stem"],
-                stem: ["stem", "science", "technology", "engineering", "mathematics"],
-                technology: ["technology", "computer science", "stem"],
-                art: ["art", "arts", "visual arts"],
-                arts: ["art", "arts", "visual arts"],
-                music: ["music", "performing arts"],
-                writing: ["writing", "literature", "english"],
-                english: ["english", "writing", "literature"],
-                reading: ["reading", "literature", "english"],
-                debate: ["debate", "public speaking"],
-                speaking: ["public speaking", "debate"],
-                volunteering: ["volunteering", "community service"],
-                volunteer: ["volunteering", "community service"],
-                service: ["community service", "volunteering"],
-                research: ["research", "science"],
-                internship: ["internship", "internships"],
-                internships: ["internship", "internships"],
-                club: ["club", "organization"],
-                clubs: ["club", "organization"],
-                program: ["program", "programs"],
-                programs: ["program", "programs"]
-            };
+        function normalizeSearchText(text) {
+            return String(text || "")
+                .toLowerCase()
+                .replace(/[–—]/g, "-")
+                .replace(/[^a-z0-9\s-]/g, " ")
+                .replace(/\s+/g, " ")
+                .trim();
+        }
 
-            const queryWords = query
-                .split(/\s+/)
-                .map(word => word.replace(/[^\w-]/g, ""))
-                .filter(Boolean);
-
-            const matchesQuery = !query || queryWords.every(word => {
-                const aliases = searchAliases[word] || [word];
-
-                return aliases.some(alias => searchableText.includes(alias));
-            });
-
-            const matchesCategory = !selectedCategory || (opportunity.categories || []).includes(selectedCategory);
-            function getGrades(gradeText) {
-                if (!gradeText) {
-                    return [];
-                }
-
-                const text = gradeText
-                    .toLowerCase()
-                    .replace(/[–—]/g, "-");
-
-                const foundGrades = new Set();
-
-                function convertGrade(value) {
-                    if (value === "k" || value === "kindergarten") {
-                        return 0;
-                    }
-
-                    const number = Number(value);
-
-                    if (!Number.isNaN(number) && number >= 1 && number <= 12) {
-                        return number;
-                    }
-
-                    return null;
-                }
-
-                const rangeMatch = text.match(
-                    /\b(k|kindergarten|\d{1,2})\s*(?:-|to|through)\s*(k|kindergarten|\d{1,2})\b/
-                );
-
-                if (rangeMatch) {
-                    const start = convertGrade(rangeMatch[1]);
-                    const end = convertGrade(rangeMatch[2]);
-
-                    if (start !== null && end !== null && start <= end) {
-                        for (let grade = start; grade <= end; grade++) {
-                            foundGrades.add(grade);
-                        }
-                    }
-                } else {
-                    if (
-                        /\bk\b/.test(text) ||
-                        text.includes("kindergarten")
-                    ) {
-                        foundGrades.add(0);
-                    }
-
-                    const numbers = [...text.matchAll(/\b\d{1,2}\b/g)];
-
-                    numbers.forEach(match => {
-                        const grade = Number(match[0]);
-
-                        if (grade >= 1 && grade <= 12) {
-                            foundGrades.add(grade);
-                        }
-                    });
-                }
-
-                return [...foundGrades];
+        function singularizeSearchWord(word) {
+            if (word.endsWith("ies") && word.length > 4) {
+                return word.slice(0, -3) + "y";
             }
 
-            const opportunityGrades = getGrades(opportunity.grade);
+            if (
+                word.endsWith("s") &&
+                !word.endsWith("ss") &&
+                word.length > 3
+            ) {
+                return word.slice(0, -1);
+            }
 
-            const selectedGradeNumber = grades.indexOf(selectedGrade);
+            return word;
+        }
+
+        function textContainsTerm(text, term) {
+            const normalizedText = normalizeSearchText(text);
+            const normalizedTerm = normalizeSearchText(term);
+
+            if (!normalizedText || !normalizedTerm) {
+                return false;
+            }
+
+            if (normalizedText === normalizedTerm) {
+                return true;
+            }
+
+            return (
+                " " + normalizedText + " "
+            ).includes(
+                " " + normalizedTerm + " "
+            );
+        }
+
+        function getSearchConcepts(query) {
+            let remaining = normalizeSearchText(query);
+            const found = [];
+
+            const aliases = [];
+
+            searchConcepts.forEach(concept => {
+                concept.aliases.forEach(alias => {
+                    aliases.push({
+                        alias: normalizeSearchText(alias),
+                        concept
+                    });
+                });
+            });
+
+            aliases.sort((a, b) => b.alias.length - a.alias.length);
+
+            aliases.forEach(item => {
+                const pattern = new RegExp(
+                    "(^|\\s)" +
+                    item.alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") +
+                    "(?=\\s|$)",
+                    "g"
+                );
+
+                if (pattern.test(remaining)) {
+                    found.push(item.concept);
+                    remaining = remaining
+                        .replace(pattern, " ")
+                        .replace(/\s+/g, " ")
+                        .trim();
+                }
+            });
+
+            const remainingWords = remaining
+                .split(/\s+/)
+                .map(singularizeSearchWord)
+                .filter(word =>
+                    word.length > 1 &&
+                    ![
+                        "a",
+                        "an",
+                        "and",
+                        "for",
+                        "from",
+                        "in",
+                        "of",
+                        "on",
+                        "or",
+                        "the",
+                        "to",
+                        "with",
+                        "near",
+                        "best",
+                        "good",
+                        "top"
+                    ].includes(word)
+                );
+
+            return {
+                concepts: [...new Set(found)],
+                remainingWords
+            };
+        }
+
+        function getSearchScore(opportunity) {
+            const query = normalizeSearchText(searchInput.value);
+
+            if (!query) {
+                return 0;
+            }
+
+            const parsed = getSearchConcepts(query);
+            const concepts = parsed.concepts;
+            const remainingWords = parsed.remainingWords;
+
+            const categories = (opportunity.categories || [])
+                .map(normalizeSearchText)
+                .filter(Boolean);
+
+            const name = normalizeSearchText(opportunity.name);
+            const organization = normalizeSearchText(
+                opportunity.organization
+            );
+            const description = normalizeSearchText(
+                opportunity.description
+            );
+            const eligibility = normalizeSearchText(
+                opportunity.eligibility
+            );
+            const location = normalizeSearchText(
+                opportunity.location
+            );
+            const cost = normalizeSearchText(
+                opportunity.cost
+            );
+
+            const allText = [
+                name,
+                organization,
+                description,
+                eligibility,
+                location,
+                cost,
+                categories.join(" ")
+            ].join(" ");
+
+            let score = 0;
+
+            concepts.forEach(concept => {
+                const categoryMatch = concept.categories.some(term =>
+                    categories.some(category =>
+                        textContainsTerm(category, term)
+                    )
+                );
+
+                const nameMatch = concept.categories.some(term =>
+                    textContainsTerm(name, term)
+                );
+
+                const textMatch = concept.aliases.some(term =>
+                    textContainsTerm(description, term) ||
+                    textContainsTerm(organization, term) ||
+                    textContainsTerm(eligibility, term)
+                );
+
+                const excluded = concept.exclude.some(term =>
+                    categories.some(category =>
+                        textContainsTerm(category, term)
+                    ) ||
+                    textContainsTerm(name, term)
+                );
+
+                if (excluded) {
+                    score -= 100;
+                    return;
+                }
+
+                if (categoryMatch) {
+                    score += 100;
+                } else if (nameMatch) {
+                    score += 70;
+                } else if (textMatch) {
+                    score += 15;
+                } else {
+                    score -= 80;
+                }
+            });
+
+            remainingWords.forEach(word => {
+                const wordRegex = new RegExp(
+                    "(^|\\s)" +
+                    word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") +
+                    "(\\s|$)"
+                );
+
+                if (wordRegex.test(name)) {
+                    score += 55;
+                } else if (
+                    categories.some(category =>
+                        wordRegex.test(category)
+                    )
+                ) {
+                    score += 50;
+                } else if (wordRegex.test(organization)) {
+                    score += 25;
+                } else if (wordRegex.test(description)) {
+                    score += 12;
+                } else if (wordRegex.test(eligibility)) {
+                    score += 8;
+                } else if (wordRegex.test(allText)) {
+                    score += 5;
+                } else {
+                    score -= 25;
+                }
+            });
+
+            if (
+                concepts.length === 0 &&
+                remainingWords.length === 0
+            ) {
+                return 0;
+            }
+
+            if (concepts.length === 0) {
+                const anyWordMatch = remainingWords.some(word =>
+                    allText.includes(word)
+                );
+
+                return anyWordMatch ? score : -1;
+            }
+
+            return score;
+        }
+
+        function getGrades(gradeText) {
+            if (!gradeText) {
+                return [];
+            }
+
+            const text = gradeText
+                .toLowerCase()
+                .replace(/[–—]/g, "-");
+
+            const foundGrades = new Set();
+
+            function convertGrade(value) {
+                if (
+                    value === "k" ||
+                    value === "kindergarten"
+                ) {
+                    return 0;
+                }
+
+                const number = Number(value);
+
+                if (
+                    !Number.isNaN(number) &&
+                    number >= 1 &&
+                    number <= 12
+                ) {
+                    return number;
+                }
+
+                return null;
+            }
+
+            const rangeMatch = text.match(
+                /\b(k|kindergarten|\d{1,2})\s*(?:-|to|through)\s*(k|kindergarten|\d{1,2})\b/
+            );
+
+            if (rangeMatch) {
+                const start = convertGrade(rangeMatch[1]);
+                const end = convertGrade(rangeMatch[2]);
+
+                if (
+                    start !== null &&
+                    end !== null &&
+                    start <= end
+                ) {
+                    for (
+                        let grade = start;
+                        grade <= end;
+                        grade++
+                    ) {
+                        foundGrades.add(grade);
+                    }
+                }
+            } else {
+                if (
+                    /\bk\b/.test(text) ||
+                    text.includes("kindergarten")
+                ) {
+                    foundGrades.add(0);
+                }
+
+                const numbers = [
+                    ...text.matchAll(/\b\d{1,2}\b/g)
+                ];
+
+                numbers.forEach(match => {
+                    const grade = Number(match[0]);
+
+                    if (grade >= 1 && grade <= 12) {
+                        foundGrades.add(grade);
+                    }
+                });
+            }
+
+            return [...foundGrades];
+        }
+
+        function getMatches(opportunity) {
+            const selectedCategory = categoryFilter.value;
+            const selectedGrade = gradeFilter.value;
+            const searchScore = getSearchScore(opportunity);
+
+            const matchesQuery =
+                !searchInput.value.trim() ||
+                searchScore >= 0;
+
+            const matchesCategory =
+                !selectedCategory ||
+                (opportunity.categories || []).includes(
+                    selectedCategory
+                );
+
+            const opportunityGrades =
+                getGrades(opportunity.grade);
+
+            const selectedGradeNumber =
+                grades.indexOf(selectedGrade);
 
             const matchesGrade =
                 !selectedGrade ||
-                opportunityGrades.includes(selectedGradeNumber);
-                        return matchesQuery && matchesCategory && matchesGrade;
-        }   
+                opportunityGrades.includes(
+                    selectedGradeNumber
+                );
+
+            return {
+                matches:
+                    matchesQuery &&
+                    matchesCategory &&
+                    matchesGrade,
+                score: searchScore
+            };
+        }
 
         function renderOpportunities() {
-            const filtered = uniqueOpportunities.filter(matchesFilters);
+            const filtered = uniqueOpportunities
+                .map(opportunity => ({
+                    opportunity,
+                    result: getMatches(opportunity)
+                }))
+                .filter(item => item.result.matches)
+                .sort((a, b) => {
+                    return b.result.score - a.result.score;
+                })
+                .map(item => item.opportunity);
 
             container.innerHTML = "";
 
             if (filtered.length === 0) {
                 const empty = document.createElement("p");
                 empty.className = "empty-state";
-                empty.textContent = "No opportunities match those filters.";
+                empty.textContent =
+                    "No opportunities match those filters.";
                 container.appendChild(empty);
                 return;
             }
@@ -241,46 +714,110 @@ fetch("all_opportunities.json")
             filtered.forEach(opportunity => {
                 const card = document.createElement("div");
                 card.className = "opportunity-card";
-                const slug = opportunity.slug || opportunity.name;
-                const isStarred = starredOpportunities.has(slug);
+
+                const slug =
+                    opportunity.slug ||
+                    opportunity.name;
+
+                const isStarred =
+                    starredOpportunities.has(slug);
+
                 card.innerHTML =
-                    "<button class='star-button" + (isStarred ? " starred" : "") + "' type='button'>" +
-                        (isStarred ? "★" : "☆") +
+                    "<button class='star-button" +
+                    (isStarred ? " starred" : "") +
+                    "' type='button'>" +
+                    (isStarred ? "★" : "☆") +
                     "</button>" +
-                    "<h2>" + (opportunity.name || "Untitled Opportunity") + "</h2>" +
-                    "<p>" + (opportunity.description || "") + "</p>" +
-                    "<p><strong>Organization:</strong> " + (opportunity.organization || "Not listed") + "</p>" +
-                    "<p><strong>Categories:</strong> " + ((opportunity.categories || []).join(", ") || "Not listed") + "</p>" +
-                    "<p><strong>Location:</strong> " + (opportunity.location || "N/A") + "</p>" +
-                    "<p><strong>Cost:</strong> " + (opportunity.cost || "N/A") + "</p>" +
-                    "<p><strong>Eligibility:</strong> " + (opportunity.eligibility || "N/A") + "</p>" +
-                    "<p><strong>Grade:</strong> " + (opportunity.grade || "N/A") + "</p>" +
+                    "<h2>" +
+                    (opportunity.name ||
+                        "Untitled Opportunity") +
+                    "</h2>" +
+                    "<p>" +
+                    (opportunity.description || "") +
+                    "</p>" +
+                    "<p><strong>Organization:</strong> " +
+                    (opportunity.organization ||
+                        "Not listed") +
+                    "</p>" +
+                    "<p><strong>Categories:</strong> " +
+                    ((opportunity.categories || []).join(
+                        ", "
+                    ) || "Not listed") +
+                    "</p>" +
+                    "<p><strong>Location:</strong> " +
+                    (opportunity.location || "N/A") +
+                    "</p>" +
+                    "<p><strong>Cost:</strong> " +
+                    (opportunity.cost || "N/A") +
+                    "</p>" +
+                    "<p><strong>Eligibility:</strong> " +
+                    (opportunity.eligibility || "N/A") +
+                    "</p>" +
+                    "<p><strong>Grade:</strong> " +
+                    (opportunity.grade || "N/A") +
+                    "</p>" +
                     (opportunity.official_url
-                        ? "<a href='" + opportunity.official_url + "' target='_blank' rel='noopener' class='official-link' data-slug='" + opportunity.slug + "'>Official Website</a>"
+                        ? "<a href='" +
+                          opportunity.official_url +
+                          "' target='_blank' rel='noopener' class='official-link' data-slug='" +
+                          opportunity.slug +
+                          "'>Official Website</a>"
                         : "");
 
-                const actions = document.createElement("div");
+                const actions =
+                    document.createElement("div");
+
                 actions.className = "card-actions";
                 card.appendChild(actions);
-                const starButton = card.querySelector(".star-button");
-                starButton.addEventListener("click", () => {
-                    if (starredOpportunities.has(slug)) {
-                        starredOpportunities.delete(slug);
-                    } else {
-                        starredOpportunities.add(slug);
+
+                const starButton =
+                    card.querySelector(".star-button");
+
+                starButton.addEventListener(
+                    "click",
+                    () => {
+                        if (
+                            starredOpportunities.has(
+                                slug
+                            )
+                        ) {
+                            starredOpportunities.delete(
+                                slug
+                            );
+                        } else {
+                            starredOpportunities.add(
+                                slug
+                            );
+                        }
+
+                        saveStarred();
+                        renderOpportunities();
                     }
-                    saveStarred();
-                    renderOpportunities();
-                });
-                const officialLink = card.querySelector(".official-link");
+                );
+
+                const officialLink =
+                    card.querySelector(".official-link");
+
                 if (officialLink) {
-                    officialLink.addEventListener("click", () => {
-                        fetch("/api/click/" + encodeURIComponent(opportunity.slug), {
-                            method: "POST"
-                        }).catch(error => {
-                            console.error("error recording click:", error);
-                        });
-                    });
+                    officialLink.addEventListener(
+                        "click",
+                        () => {
+                            fetch(
+                                "/api/click/" +
+                                encodeURIComponent(
+                                    opportunity.slug
+                                ),
+                                {
+                                    method: "POST"
+                                }
+                            ).catch(error => {
+                                console.error(
+                                    "error recording click:",
+                                    error
+                                );
+                            });
+                        }
+                    );
                 }
 
                 container.appendChild(card);
@@ -288,28 +825,59 @@ fetch("all_opportunities.json")
         }
 
         function saveOpportunities() {
-            localStorage.setItem(storageKey, JSON.stringify(uniqueOpportunities));
-            saveStatus.textContent = "Changes saved in this browser.";
+            localStorage.setItem(
+                storageKey,
+                JSON.stringify(uniqueOpportunities)
+            );
+
+            saveStatus.textContent =
+                "Changes saved in this browser.";
         }
 
         function openEditor(opportunity) {
-            const fields = ["name", "organization", "description", "location", "cost", "deadline", "eligibility", "grade", "official_url", "source_url", "slug"];
+            const fields = [
+                "name",
+                "organization",
+                "description",
+                "location",
+                "cost",
+                "deadline",
+                "eligibility",
+                "grade",
+                "official_url",
+                "source_url",
+                "slug"
+            ];
 
             fields.forEach(field => {
-                editForm.elements[field].value = opportunity[field] || "";
+                editForm.elements[field].value =
+                    opportunity[field] || "";
             });
 
-            editForm.elements.categories.value = (opportunity.categories || []).join(", ");
-            editForm.dataset.index = uniqueOpportunities.indexOf(opportunity);
+            editForm.elements.categories.value =
+                (opportunity.categories || []).join(", ");
+
+            editForm.dataset.index =
+                uniqueOpportunities.indexOf(
+                    opportunity
+                );
+
             editDialog.showModal();
         }
 
         function removeOpportunity(opportunity) {
-            if (!window.confirm("Remove this opportunity from the index?")) {
+            if (
+                !window.confirm(
+                    "Remove this opportunity from the index?"
+                )
+            ) {
                 return;
             }
 
-            const index = uniqueOpportunities.indexOf(opportunity);
+            const index =
+                uniqueOpportunities.indexOf(
+                    opportunity
+                );
 
             if (index !== -1) {
                 uniqueOpportunities.splice(index, 1);
@@ -318,20 +886,41 @@ fetch("all_opportunities.json")
             }
         }
 
-        searchInput.addEventListener("input", renderOpportunities);
-        categoryFilter.addEventListener("change", renderOpportunities);
-        gradeFilter.addEventListener("change", renderOpportunities);
+        searchInput.addEventListener(
+            "input",
+            renderOpportunities
+        );
 
-        clearFiltersButton.addEventListener("click", () => {
-            searchInput.value = "";
-            categoryFilter.value = "";
-            gradeFilter.value = "";
-            renderOpportunities();
-        });
+        categoryFilter.addEventListener(
+            "change",
+            renderOpportunities
+        );
+
+        gradeFilter.addEventListener(
+            "change",
+            renderOpportunities
+        );
+
+        clearFiltersButton.addEventListener(
+            "click",
+            () => {
+                searchInput.value = "";
+                categoryFilter.value = "";
+                gradeFilter.value = "";
+                renderOpportunities();
+            }
+        );
 
         renderOpportunities();
     })
     .catch(error => {
-        console.error("Error loading opportunities:", error);
-        document.getElementById("opportunities").textContent = "Unable to load opportunities.";
+        console.error(
+            "Error loading opportunities:",
+            error
+        );
+
+        document.getElementById(
+            "opportunities"
+        ).textContent =
+            "Unable to load opportunities.";
     });
