@@ -17,9 +17,9 @@
 }
 
 body {
-    max-width: 1240px;
+    max-width: 1600px;
     margin: 0 auto;
-    padding: 56px 32px 72px;
+    padding: 56px 24px 72px;
     color: var(--ink);
     font-family: 'Roboto', 'Segoe UI', sans-serif;
     background-color: var(--paper);
@@ -73,7 +73,7 @@ a:focus-visible {
 
 .filters {
     display: grid;
-    grid-template-columns: minmax(230px, 1.8fr) repeat(2, minmax(150px, 1fr)) auto;
+    grid-template-columns: minmax(0, 1.8fr) repeat(3, minmax(0, 1fr)) auto;
     gap: 14px;
     align-items: end;
     margin: 0 0 34px;
@@ -81,6 +81,7 @@ a:focus-visible {
     border: 1px solid var(--line);
     background: rgba(255, 255, 255, .72);
     box-shadow: var(--shadow);
+    width: 100%;
 }
 
 .filter-group {
@@ -125,6 +126,8 @@ a:focus-visible {
     min-height: 44px;
     cursor: pointer;
     transition: background .18s ease, color .18s ease, transform .18s ease;
+    justify-self: start;
+    white-space: nowrap;
 }
 
 .clear-button2:hover {
