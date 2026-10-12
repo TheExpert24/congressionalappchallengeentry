@@ -6,6 +6,7 @@ const clearFiltersButton = document.getElementById("clearFilters");
 const saveStatus = document.getElementById("saveStatus");
 const storageKey = "congressional-app-opportunities";
 const starredKey = "next-gen-starred";
+const typeFilter = document.getElementById("typeFilter");
 
 const starredOpportunities = new Set(
     JSON.parse(localStorage.getItem(starredKey) || "[]")
@@ -73,6 +74,12 @@ fetch("all_opportunities.json")
                 .filter(Boolean)
                 .sort()
         );
+        populateSelect(typeFilter, [
+            "Competition",
+            "Scholarship",
+            "Internship",
+            "Program"
+        ]);
 
         const grades = [
             "Kindergarten",
@@ -655,6 +662,22 @@ fetch("all_opportunities.json")
         function getMatches(opportunity) {
             const selectedCategory = categoryFilter.value;
             const selectedGrade = gradeFilter.value;
+            const selectedType = typeFilter.value;
+            const categories = opportunity.categories || [];
+            const specialTypes = [
+                "Competition",
+                "Scholarship",
+                "Internship"
+            ];
+            const actualType = categories.find(category =>
+                specialTypes.some(type =>
+                    type.toLowerCase() === category.toLowerCase()
+                )
+            ) || "Program";
+
+            const matchesType =
+                !selectedType ||
+                actualType.toLowerCase() === selectedType.toLowerCase();
             const searchScore = getSearchScore(opportunity);
 
             const matchesQuery =
@@ -683,7 +706,8 @@ fetch("all_opportunities.json")
                 matches:
                     matchesQuery &&
                     matchesCategory &&
-                    matchesGrade,
+                    matchesGrade &&
+                    matchesType,
                 score: searchScore
             };
         }
@@ -900,6 +924,10 @@ fetch("all_opportunities.json")
             "change",
             renderOpportunities
         );
+        typeFilter.addEventListener(
+            "change",
+            renderOpportunities
+        );
 
         clearFiltersButton.addEventListener(
             "click",
@@ -907,6 +935,7 @@ fetch("all_opportunities.json")
                 searchInput.value = "";
                 categoryFilter.value = "";
                 gradeFilter.value = "";
+                typeFilter.value = "";
                 renderOpportunities();
             }
         );
