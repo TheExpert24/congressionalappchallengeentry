@@ -10,7 +10,8 @@
       "Robotics",
       "Engineering",
       "Mathematics",
-      "Science"
+      "Science",
+      "Competition"
     ],
     "location": "",
     "cost": "",
@@ -306,7 +307,8 @@
     "type": "Other",
     "categories": [
       "STEM",
-      "Mathematics"
+      "Mathematics",
+      "Competition"
     ],
     "location": "Pittsburgh, PA, USA",
     "cost": "$30",
@@ -1133,7 +1135,8 @@
       "STEM",
       "Engineering",
       "Robotics",
-      "Computer Science"
+      "Computer Science",
+      "Competition"
     ],
     "location": "Multiple, Various, USA",
     "cost": "Details not listed · Check official site",
@@ -1211,7 +1214,8 @@
     "type": "Other",
     "categories": [
       "STEM",
-      "Engineering"
+      "Engineering",
+      "Competition"
     ],
     "location": "USA",
     "cost": "Details not listed · Check official site",
@@ -1230,13 +1234,15 @@
     "type": "Other",
     "categories": [
       "STEM",
-      "Engineering"
+      "Engineering",
+      "Robotics",
+      "Competition"
     ],
     "location": "International",
     "cost": "Details not listed · Check official site",
     "deadline": "Coming soon",
-    "eligibility": "Grades 9-12",
-    "grade": "9-12",
+    "eligibility": "University Only",
+    "grade": "University Only",
     "age": "",
     "official_url": "https://www.robomaster.com/en-US/robo/rm?djifrom=nav",
     "source_url": "https://extracurricularhub.com/extracurriculars/robomaster",
@@ -1522,7 +1528,9 @@
     "type": "Other",
     "categories": [
       "STEM",
-      "Science"
+      "Science",
+      "Photography",
+      "Competition"
     ],
     "location": "College Park, MD, USA",
     "cost": "Details not listed · Check official site",
@@ -1860,7 +1868,8 @@
     "description": "Goldman Sachs Possibilities Series is a internship run by Goldman Sachs for high school juniors.",
     "type": "Other",
     "categories": [
-      "Business"
+      "Business",
+      "Competition"
     ],
     "location": "New York, New York, USA",
     "cost": "Details not listed · Check official site",
@@ -2579,7 +2588,8 @@
     "description": "Worldwide online essay contest for enrolled middle- and high-school students age 13+, offering up to $2,000 for original analysis of Ayn Rand's Anthem. Ayn Rand Institute Anthem Essay Contest is a arts program run by Ayn Rand Institute for students in grades 9-10. The format is online.",
     "type": "Other",
     "categories": [
-      "Writing"
+      "Writing",
+      "Competition"
     ],
     "location": "USA",
     "cost": "Details not listed · Check official site",
@@ -2592,25 +2602,6 @@
     "slug": "ayn-rand-institute-anthem-essay-contest"
   },
   {
-    "name": "CSPA Crown Awards",
-    "organization": "Columbia Scholastic Press Association",
-    "description": "An open publication-level award for 2025-26 student print/digital media, due August 31, 2026; required CSPA membership plus Crown entry totals USD 210. CSPA Crown Awards is a arts program run by Columbia Scholastic Press Association for high school students. The format is online.",
-    "type": "Other",
-    "categories": [
-      "Journalism",
-      "Writing"
-    ],
-    "location": "New York, NY, USA",
-    "cost": "$100",
-    "deadline": "August 31, 2026",
-    "eligibility": "Grades 9-12",
-    "grade": "9-12",
-    "age": "",
-    "official_url": "https://precollege.sps.columbia.edu/columbia-scholastic-press-association/cspa-awards-programs/cspa-crown-awards",
-    "source_url": "https://extracurricularhub.com/extracurriculars/columbia-scholastic-press",
-    "slug": "cspa-crown-awards"
-  },
-  {
     "name": "Harvard International Economics Essay Contest",
     "organization": "Harvard Undergraduate Economics Association",
     "description": "HARVARD UNDERGRADUATE ECONOMICS ASSOCIATION Global grades 9-12 economics essay contest run by Harvard's undergraduate economics association; one 1,500-word PDF answers a cycle-specific prompt. Harvard International Economics Essay Contest is a research program run by Harvard Undergraduate Economics Association for high school students. The format is online.",
@@ -2618,7 +2609,8 @@
     "categories": [
       "Business",
       "Economics",
-      "Writing"
+      "Writing",
+      "Competition"
     ],
     "location": "USA",
     "cost": "Details not listed · Check official site",
@@ -2654,7 +2646,8 @@
     "description": "U.S. grades 9-12 research-and-writing contest on political courage; the 2027 cycle opens September 1, 2026, but its closing-date field is still an official placeholder. John F.",
     "type": "Other",
     "categories": [
-      "Writing"
+      "Writing",
+      "Competition"
     ],
     "location": "USA",
     "cost": "Details not listed · Check official site",
@@ -2729,7 +2722,8 @@
     "description": "A free, open, worldwide April challenge to draft one poem a day, supported by optional daily prompts and resources; there is no application, judging or prize. National/Global Poetry Writing Month (Na/GloPoWriMo) is a arts program run by NaPoWriMo.net / Maureen Thorson for high school students. The format is online.",
     "type": "Other",
     "categories": [
-      "Writing"
+      "Writing",
+      "Competition"
     ],
     "location": "International",
     "cost": "Free",
@@ -2862,7 +2856,8 @@
     "type": "Other",
     "categories": [
       "Journalism",
-      "Writing"
+      "Writing",
+      "Competition"
     ],
     "location": "New York, NY, USA",
     "cost": "Free",
@@ -3274,8 +3269,7 @@
     "description": "Quarter-based volunteer operation of the University of Chicago's student-run cinema, with roles in programming, ticketing, theater safety, projection, publicity, design, and show management. Doc Films Volunteering and Programming is a arts program run by Doc Films at the University of Chicago for high school students. The format is in person.",
     "type": "Other",
     "categories": [
-      "Film",
-      "Computer Science"
+      "Film"
     ],
     "location": "US",
     "cost": "$6",
@@ -3564,20 +3558,6 @@
     "official_url": "https://www.pta.org/home/programs/reflections",
     "source_url": "https://www.pta.org/home/programs/reflections",
     "slug": "national-pta-reflections"
-  },
-  {
-    "name": "Bow Seat Ocean Awareness Competition",
-    "organization": "Bow Seat",
-    "description": "The ocean has always been central to Bow Seat’s mission. Since the first Ocean Awareness Contest in 2012, we’ve asked students to explore ocean-related issues like marine species conservation, plastic pollution, and climate change. As our organization continues to evolve in new and exciting ways, we wanted to return to the topic that has captivated, moved, and activated tens of thousands of students who have participated in the Contest: the ocean! What value does the ocean bring to all of our lives? We’ve learned about the challenges that threaten the ocean, but why is it so important that we protect it?",
-    "categories": [],
-    "location": "Online, USA",
-    "cost": "Free",
-    "deadline": "Not listed",
-    "eligibility": "Ages 11-18",
-    "grade": "6-12",
-    "official_url": "https://bowseat.org/programs/ocean-awareness-contest/contest-overview/",
-    "source_url": "https://bowseat.org/programs/ocean-awareness-contest/contest-overview/",
-    "slug": "bow-seat-ocean-awareness-competition"
   },
   {
     "name": "ESS Art Contest",
@@ -3946,7 +3926,7 @@
     "slug": "princeton-legal-journal-high-school-essay-contest"
   },
   {
-    "name": "Math Kangeroo Competiton",
+    "name": "Math Kangeroo Competition",
     "organization": "Math Kangeroo USA",
     "description": "The Math Kangaroo Competition is an international mathematics contest designed to inspire students in grades K–12 to develop problem-solving skills and mathematical thinking. Each year, tens of thousands of students from the United States, along with over six million participants from around the world, take part in Math Kangaroo.",
     "categories": [
@@ -3960,7 +3940,7 @@
     "grade": "K-12",
     "official_url": "https://mathkangaroo.org/mks/math-kangaroo-competition/",
     "source_url": "https://mathkangaroo.org/mks/math-kangaroo-competition/",
-    "slug": "math-kangeroo-competiton"
+    "slug": "math-kangeroo-competition"
   },
   {
     "name": "AMC",
