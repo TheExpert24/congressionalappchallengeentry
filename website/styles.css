@@ -762,3 +762,97 @@ dialog::backdrop {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 18px;
 }
+
+/* Free learning resources page */
+
+.learning-resources {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.learning-resource {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+}
+
+.resource-logo {
+    flex: 0 0 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+}
+
+.resource-logo img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+}
+
+.resource-info {
+    flex: 1;
+    min-width: 0;
+    padding: 20px 24px;
+    background: white;
+    border: 1px solid var(--line);
+    box-shadow: 0 8px 24px rgba(93, 55, 38, .08);
+}
+
+.resource-info h2 {
+    margin: 0 0 8px;
+    font-size: 1.3rem;
+    line-height: 1.2;
+}
+
+.resource-info p {
+    margin: 0 0 12px;
+    color: var(--muted);
+}
+
+.resource-info a {
+    color: var(--accent);
+    font-weight: 700;
+    text-underline-offset: 3px;
+}
+
+.learning-resources-button {
+    display: inline-block;
+    padding: 10px 16px;
+    background: #6b4f3a;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.learning-resources-button:hover {
+    background: #513a2b;
+}
+
+@media (max-width: 560px) {
+    .learning-resource {
+        gap: 10px;
+    }
+
+    .resource-logo {
+        flex-basis: 76px;
+        padding: 8px;
+    }
+
+    .resource-logo img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .resource-info {
+        padding: 14px;
+    }
+
+    .resource-info h2 {
+        font-size: 1.05rem;
+    }
+}
