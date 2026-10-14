@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+    <title>Next Gen Opportunities</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <h1>Next Gen Opportunities</h1>
+    <p>
+    Next Gen Opportunities provides a database of free or low-cost opportunities for students grades K-12 in the United States, sorted by grade level and category.</p>
+    <div class="page-actions">
+        <a href="top-opportunities.html" class="top-opportunities-button">Most Visited Opportunities</a>
+        <a href="starred.html" class="starred-opportunities-button">Starred Opportunities</a>
+        <a href="learning_resources.html"class="learning-resources-button">Online Learning Resources</a>
+    </div>
+    <div class="filters" aria-label="Opportunity filters">
+        <div class="filter-group search-group">
+            <label for="searchInput">Search</label>
+            <input id="searchInput" type="search" placeholder="Search opportunities...">
+        </div>
+        <div class="filter-group">
+            <label for="categoryFilter">Category</label>
+            <select id="categoryFilter">
+                <option value="">All Categories</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="typeFilter">Opportunity Type</label>
+            <select id="typeFilter">
+                <option value="">All Types</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="gradeFilter">Grade</label>
+            <select id="gradeFilter">
+                <option value="">All Grades</option>
+            </select>
+        </div>
+
+        <button id="clearFilters" type="button" class="clear-button2">Clear</button>
+    </div>
+
+    <main id="opportunities"></main>
+    <dialog id="editDialog" aria-labelledby="editDialogTitle">
+        <form id="editForm" method="dialog">
+            <div class="dialog-heading">
+                <h2 id="editDialogTitle">Edit opportunity</h2>
+                <button id="closeEdit" type="button" class="icon-button" aria-label="Close">&times;</button>
+            </div>
+            <div class="edit-fields">
+                <label>Name<input name="name" required></label>
+                <label>Organization<input name="organization"></label>
+                <label>Description<textarea name="description" required></textarea></label>
+                <label>Categories<input name="categories" placeholder="STEM, Computer Science"></label>
+                <label>Location<input name="location"></label>
+                <label>Cost<input name="cost"></label>
+                <label>Eligibility<input name="eligibility"></label>
+                <label>Grade<input name="grade"></label>
+                <label>Official URL<input name="official_url" type="url"></label>
+                <label>Source URL<input name="source_url" type="url"></label>
+                <label>Slug<input name="slug"></label>
+            </div>
+            <div class="dialog-actions">
+                <button id="cancelEdit" type="button" class="secondary-action">Cancel</button>
+                <button type="submit">Save Entry</button>
+            </div>
+        </form>
+    </dialog>
+</body>
+</html>
