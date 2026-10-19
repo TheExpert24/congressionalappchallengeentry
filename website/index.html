@@ -6,11 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#000000">
     <title>Next Gen Opportunities</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&display=swap" rel="stylesheet">
-
     <style>
         * {
             box-sizing: border-box;
@@ -228,6 +226,67 @@
             line-height: 1.8;
         }
 
+        #about {
+            position: relative;
+            isolation: isolate;
+            min-height: 100svh;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #000;
+            color: #fff;
+        }
+
+        #about::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-image: url("images/map.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 60% auto;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        #about::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: rgba(255, 255, 255,0.01);
+            pointer-events: none;
+        }
+
+        .about-content {
+            position: relative;
+            z-index: 2;
+            width: min(720px, 100%);
+            padding: 24px;
+            text-align: center;
+            background: transparent;
+        }
+
+        .about-content h2 {
+            margin: 0 0 24px;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 500;
+            color: #fff;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, .95);
+        }
+
+        .about-content p {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            line-height: 1.8;
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, .95);
+        }
+
         @media (max-width: 700px) {
             #title {
                 width: 78%;
@@ -281,6 +340,15 @@
             #earth-closing p {
                 font-size: 13px;
             }
+
+            #about {
+                min-height: 110svh;
+                padding: 0 18px;
+            }
+
+            .about-content {
+                padding: 18px 8px;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -292,7 +360,6 @@
         }
     </style>
 </head>
-
 <body>
     <main>
         <section id="scene">
@@ -311,8 +378,18 @@
                     <a class="stat-source" id="stat-source" href="#" target="_blank" rel="noopener noreferrer">View source ↗</a>
                 </div>
 
-                <div id="earth-closing">
-                </div>
+                <div id="earth-closing"></div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="about-content">
+                <h2>About Us</h2>
+                <p>
+                    Next Gen Opportunities is a database for academic opportunities. We have a list of over 200 opportunities + free online learning resources 
+                    for ages K-University in over 22 different subjects. We created this site to help other parents or students look for different opportunities 
+                    that would help cultivate their interests, since it is quite difficult to navigate through paid or scam opportunities for students. 
+                </p>
             </div>
         </section>
     </main>
@@ -645,8 +722,7 @@
             const markerGroup = new THREE.Group();
             const latitude = THREE.MathUtils.degToRad(region.latitude);
             const longitude = THREE.MathUtils.degToRad(region.longitude);
-            const surfaceRadius = 1.12;
-            const markerRadius = 1.135;
+
             const surfaceNormal = new THREE.Vector3(
                 Math.cos(latitude) * Math.cos(longitude),
                 Math.sin(latitude),
@@ -669,6 +745,7 @@
             pinShape.bezierCurveTo(-0.038, 0.045, -0.021, 0.06, 0, 0.06);
             pinShape.bezierCurveTo(0.021, 0.06, 0.038, 0.045, 0.038, 0.022);
             pinShape.bezierCurveTo(0.038, -0.005, 0.012, -0.035, 0, -0.055);
+
             const pin = new THREE.Mesh(
                 new THREE.ShapeGeometry(pinShape, 20),
                 new THREE.MeshBasicMaterial({
@@ -702,7 +779,7 @@
                     side: THREE.DoubleSide,
                     depthTest: true
                 })
-            );      
+            );
 
             glow.position.set(0, 0.022, 0.002);
             markerGroup.add(glow);
@@ -772,7 +849,10 @@
                 marker.visible = markerIndex === index;
             });
 
-            closing.classList.toggle("visible", index === 2 && getScrollProgress() > .94);
+            closing.classList.toggle(
+                "visible",
+                index === 2 && getScrollProgress() > .94
+            );
         }
 
         function updateGlobe() {
@@ -826,12 +906,7 @@
             globeGroup.position.x = mobile ? 0 : -.68;
             globeGroup.position.y = mobile ? .48 : -.02;
 
-            if (mobile) {
-                camera.position.z = 4.9;
-            } else {
-                camera.position.z = 4.4;
-            }
-
+            camera.position.z = mobile ? 4.9 : 4.4;
             camera.lookAt(0, 0, 0);
         }
 
