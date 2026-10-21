@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <style>
         * {
             box-sizing: border-box;
@@ -358,9 +359,263 @@
                 transition: none;
             }
         }
+        html {
+            scroll-padding-top: 76px;
+        }
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            min-height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 0 5%;
+            background: rgba(0, 0, 0, 0.88);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .site-brand {
+            flex-shrink: 0;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .site-nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: clamp(12px, 2vw, 26px);
+        }
+
+        .site-nav a {
+            color: rgba(255, 255, 255, 0.78);
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: color 0.2s ease;
+        }
+
+        .site-nav a:hover,
+        .site-nav a:focus-visible {
+            color: #8ec5ff;
+        }
+        @media (max-width: 850px) {
+            .site-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 12px 16px;
+            }
+
+            .site-nav {
+                width: 100%;
+                justify-content: flex-start;
+                gap: 20px;
+                overflow-x: auto;
+                padding-bottom: 4px;
+                scrollbar-width: none;
+            }
+
+            .site-nav::-webkit-scrollbar {
+                display: none;
+            }
+
+            .site-nav a {
+                font-size: 12px;
+            }
+        }
+
+        /* Scroll-driven starfield that transitions into shortcut cards. */
+        #opportunity-warp {
+            position: relative;
+            height: 200svh;
+            background: #000;
+        }
+
+        #warp-stage {
+            position: sticky;
+            top: 64px;
+            height: calc(100svh - 64px);
+            min-height: 480px;
+            overflow: hidden;
+            isolation: isolate;
+            background: #000;
+        }
+
+        #warp-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: #000;
+            transition: opacity .6s ease;
+        }
+
+        #explore-panel {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: clamp(16px, 3vh, 30px) clamp(16px, 5vw, 60px);
+            background: #000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(12px);
+            transition: opacity .65s ease, transform .65s ease, visibility .65s;
+        }
+
+        #opportunity-warp.show-cards #warp-canvas { opacity: 0; }
+
+        #opportunity-warp.show-cards #explore-panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .explore-heading {
+            flex-shrink: 0;
+            margin: 0 auto clamp(16px, 3vh, 28px);
+            width: min(800px, 100%);
+            text-align: center;
+        }
+
+        .explore-heading h2 {
+            margin: 0 0 10px;
+            color: #fff;
+            font-size: clamp(1.5rem, 3.2vw, 2.5rem);
+            font-weight: 500;
+            letter-spacing: .04em;
+        }
+
+        .explore-heading p {
+            margin: 0;
+            color: #999;
+            font: 14px/1.6 Arial, sans-serif;
+        }
+
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-rows: repeat(3, minmax(0, 1fr));
+            gap: clamp(10px, 1.7vh, 17px) clamp(12px, 2vw, 22px);
+            width: min(1000px, 100%);
+            flex: 1;
+            min-height: 0;
+            max-height: 580px;
+            margin: 0 auto;
+        }
+
+        .explore-card {
+            --accent: #ddd;
+            --tint: rgba(255, 255, 255, .055);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            min-width: 0;
+            padding: clamp(12px, 2vw, 22px);
+            border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+            border-left: 3px solid var(--accent);
+            border-radius: 8px;
+            background: var(--tint);
+            color: #fff;
+            text-decoration: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity .5s ease, transform .5s ease, background .2s ease, border-color .2s ease;
+        }
+
+        #opportunity-warp.show-cards .explore-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #opportunity-warp.show-cards .explore-card:nth-child(2) { transition-delay: .06s; }
+        #opportunity-warp.show-cards .explore-card:nth-child(3) { transition-delay: .12s; }
+        #opportunity-warp.show-cards .explore-card:nth-child(4) { transition-delay: .18s; }
+        #opportunity-warp.show-cards .explore-card:nth-child(5) { transition-delay: .24s; }
+        #opportunity-warp.show-cards .explore-card:nth-child(6) { transition-delay: .30s; }
+
+        .explore-card:hover,
+        .explore-card:focus-visible {
+            background: color-mix(in srgb, var(--accent) 12%, #080808);
+            border-color: var(--accent);
+            outline: none;
+        }
+
+        .explore-card h3 {
+            margin: 0 0 7px;
+            color: var(--accent);
+            font-size: clamp(.95rem, 1.8vw, 1.25rem);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .explore-card p {
+            margin: 0;
+            color: #aaa;
+            font: clamp(12px, 1.2vw, 14px)/1.55 Arial, sans-serif;
+        }
+
+        .explore-card .card-arrow {
+            flex-shrink: 0;
+            color: var(--accent);
+            font-size: 22px;
+        }
+
+        .explore-card.math { --accent: #ff6666; --tint: rgba(105, 18, 18, .13); }
+        .explore-card.coding { --accent: #bd9aff; --tint: rgba(65, 35, 100, .13); }
+        .explore-card.competitions { --accent: #ffbd69; --tint: rgba(105, 62, 15, .13); }
+        .explore-card.science { --accent: #73d69b; --tint: rgba(20, 85, 48, .13); }
+        .explore-card.learning { --accent: #71caff; --tint: rgba(20, 65, 100, .13); }
+        .explore-card.popular { --accent: #f28bd4; --tint: rgba(100, 25, 75, .13); }
+
+        @media (max-width: 850px) {
+            #warp-stage { top: 80px; height: calc(100svh - 80px); }
+            #explore-panel { padding: 12px 14px; }
+            .explore-heading { margin-bottom: 12px; }
+            .explore-heading p { font-size: 12px; }
+            .explore-grid { gap: 9px; }
+            .explore-card { padding: 12px; }
+        }
+
+        @media (max-width: 480px) {
+            .explore-card h3 { font-size: 14px; }
+            .explore-card p { font-size: 11px; }
+            .explore-card .card-arrow { font-size: 16px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #warp-canvas, #explore-panel, .explore-card { transition: none !important; }
+        }
+
     </style>
 </head>
 <body>
+    <header class="site-header">
+        <a class="site-brand" href="#scene">NEXT GEN OPPORTUNITIES</a>
+
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="opportunities.html">Catalog</a>
+            <a href="top-opportunities.html">Most Clicked</a>
+            <a href="starred.html">Starred</a>
+            <a href="learning_resources.html">Free Learning Resources</a>
+        </nav>
+    </header>
     <main>
         <section id="scene">
             <canvas id="sky" aria-label="Starfield surrounding the Next Gen Opportunities title"></canvas>
@@ -392,6 +647,70 @@
                 </p>
             </div>
         </section>
+
+        <section id="opportunity-warp" aria-label="Explore student opportunities">
+            <div id="warp-stage">
+                <canvas id="warp-canvas" aria-hidden="true"></canvas>
+
+                <div id="explore-panel">
+                    <div class="explore-heading">
+                        <h2>Explore Opportunities</h2>
+                        <p>Find competitions, programs, and resources worth exploring.</p>
+                    </div>
+
+                    <div class="explore-grid">
+                        <a class="explore-card math" href="opportunities.html?search=math&amp;grade=5th&amp;type=Competition">
+                            <div>
+                                <h3>Math Competitions</h3>
+                                <p>AMC, MATHCOUNTS, CMIMC, and more</p>
+                            </div>
+                            <span class="card-arrow" aria-hidden="true">↗</span>
+                        </a>
+
+                        <a class="explore-card coding" href="opportunities.html?search=programming">
+                            <div>
+                                <h3>Computer Science</h3>
+                                <p>USACO, Congressional App Challenge, ACSL, and more</p>
+                            </div>
+                            <span class="card-arrow" aria-hidden="true">↗</span>
+                        </a>
+
+                        <a class="explore-card competitions" href="opportunities.html?type=Internship">
+                            <div>
+                                <h3>Internships</h3>
+                                <p>AEOP, Google Code Next Labs, and more</p>
+                            </div>
+                            <span class="card-arrow" aria-hidden="true">↗</span>
+                        </a>
+
+                        <a class="explore-card science" href="opportunities.html?search=science">
+                            <div>
+                                <h3>Science Opportunities</h3>
+                                <p>USABO, RegeneronTalent Search, and more</p>
+                            </div>
+                            <span class="card-arrow" aria-hidden="true">↗</span>
+                        </a>
+
+                        <a class="explore-card learning" href="learning_resources.html">
+                            <div>
+                                <h3>Free Learning Resources</h3>
+                                <p>Khan Academy, Geeks for Geeks, TryHackMe, and more</p>
+                            </div>
+                            <span class="card-arrow" aria-hidden="true">↗</span>
+                        </a>
+
+                        <a class="explore-card popular" href="top-opportunities.html">
+                            <div>
+                                <h3>Most Clicked</h3>
+                                <p>Most clicked on opportunities</p>
+                            </div>
+                            <span class="card-arrow" aria-hidden="true">↗</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <script>
@@ -948,5 +1267,137 @@
         updateGlobe();
         renderEarth();
     </script>
+    <script>
+        (() => {
+            const section = document.getElementById("opportunity-warp");
+            const canvas = document.getElementById("warp-canvas");
+            const ctx = canvas.getContext("2d");
+            const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            let width = 0;
+            let height = 0;
+            let dpr = 1;
+            let stars = [];
+            let progress = 0;
+            let animationFrame = 0;
+
+            function resize() {
+                const rect = canvas.getBoundingClientRect();
+                width = rect.width;
+                height = rect.height;
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+                canvas.width = Math.round(width * dpr);
+                canvas.height = Math.round(height * dpr);
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+                const count = Math.min(350, Math.max(140, Math.floor(width * height / 2500)));
+                stars = Array.from({ length: count }, () => ({
+                    x: (Math.random() - .5) * width,
+                    y: (Math.random() - .5) * height,
+                    z: 1 + Math.random() * Math.max(width, height),
+                    previousZ: 0
+                }));
+                stars.forEach(star => star.previousZ = star.z);
+            }
+
+            function updateProgress() {
+                const rect = section.getBoundingClientRect();
+                const scrollDistance = section.offsetHeight - window.innerHeight;
+                progress = scrollDistance <= 0 ? 1 : Math.max(0, Math.min(1, -rect.top / scrollDistance));
+
+                if (progress >= .53 || reduceMotion) {
+                    section.classList.add("show-cards");
+                } else {
+                    section.classList.remove("show-cards");
+                }
+            }
+
+            function drawStars() {
+                ctx.fillStyle = "#000";
+                ctx.fillRect(0, 0, width, height);
+
+                const centerX = width / 2;
+                const centerY = height / 2;
+                const focalLength = Math.min(width, height) * .48;
+                const speed = reduceMotion ? 0 : 1.5 + Math.pow(progress, 1.5) * 45;
+
+                for (const star of stars) {
+                    star.previousZ = star.z;
+                    star.z -= speed;
+
+                    if (star.z <= 2) {
+                        star.x = (Math.random() - .5) * width;
+                        star.y = (Math.random() - .5) * height;
+                        star.z = Math.max(width, height);
+                        star.previousZ = star.z;
+                    }
+
+                    const x = centerX + star.x / star.z * focalLength;
+                    const y = centerY + star.y / star.z * focalLength;
+                    const oldX = centerX + star.x / star.previousZ * focalLength;
+                    const oldY = centerY + star.y / star.previousZ * focalLength;
+                    const depth = 1 - star.z / Math.max(width, height);
+                    const alpha = Math.max(.15, Math.min(.95, depth));
+
+                    ctx.beginPath();
+                    ctx.moveTo(oldX, oldY);
+                    ctx.lineTo(x, y);
+                    ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
+                    ctx.lineWidth = .4 + depth * 1.4;
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.arc(x, y, .4 + depth * 1.1, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+                    ctx.fill();
+                }
+            }
+
+            function animate() {
+                updateProgress();
+
+                if (section.classList.contains("show-cards")) {
+                    ctx.fillStyle = "#000";
+                    ctx.fillRect(0, 0, width, height);
+                    animationFrame = 0;
+                    return;
+                }
+
+                drawStars();
+                animationFrame = requestAnimationFrame(animate);
+            }
+
+            function onScroll() {
+                updateProgress();
+                if (!reduceMotion && !section.classList.contains("show-cards") && !animationFrame) {
+                    animationFrame = requestAnimationFrame(animate);
+                }
+            }
+
+            resize();
+            updateProgress();
+
+            if (reduceMotion) {
+                section.classList.add("show-cards");
+            } else {
+                animate();
+            }
+
+            window.addEventListener("scroll", onScroll, { passive: true });
+            window.addEventListener("resize", () => {
+                resize();
+                updateProgress();
+                if (!reduceMotion && !section.classList.contains("show-cards") && !animationFrame) {
+                    animationFrame = requestAnimationFrame(animate);
+                }
+            });
+
+            window.addEventListener("pagehide", () => {
+                if (animationFrame) cancelAnimationFrame(animationFrame);
+            }, { once: true });
+        })();
+    </script>
+
 </body>
 </html>

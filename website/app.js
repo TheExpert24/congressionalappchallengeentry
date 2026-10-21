@@ -910,10 +910,54 @@ fetch("all_opportunities.json")
             }
         }
 
-        searchInput.addEventListener(
-            "input",
-            renderOpportunities
-        );
+        // Read filters from URL query parameters.
+        function applyQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+
+            const search = params.get("search");
+            const category = params.get("category");
+            const grade = params.get("grade");
+            const type = params.get("type");
+
+            if (search) {
+                searchInput.value = search;
+            }
+
+            if (category) {
+                const matchingCategory = Array.from(categoryFilter.options)
+                    .find(option =>
+                        option.value.toLowerCase() === category.toLowerCase()
+                    );
+
+                if (matchingCategory) {
+                    categoryFilter.value = matchingCategory.value;
+                }
+            }
+
+                if (grade) {
+                const matchingGrade = Array.from(gradeFilter.options)
+                    .find(option =>
+                        option.value.toLowerCase() === grade.toLowerCase()
+                    );
+
+                if (matchingGrade) {
+                    gradeFilter.value = matchingGrade.value;
+                }
+            }
+
+            if (type) {
+                const matchingType = Array.from(typeFilter.options)
+                    .find(option =>
+                        option.value.toLowerCase() === type.toLowerCase()
+                    );
+
+                if (matchingType) {
+                    typeFilter.value = matchingType.value;
+                }
+            }
+        }
+
+        applyQueryParams();
 
         categoryFilter.addEventListener(
             "change",
@@ -939,17 +983,43 @@ fetch("all_opportunities.json")
                 renderOpportunities();
             }
         );
+        // Apply homepage shortcut filters after all dropdown options exist.
+        const params = new URLSearchParams(window.location.search);
+
+        const requestedSearch = params.get("search");
+        const requestedGrade = params.get("grade");
+        const requestedType = params.get("type");
+        const requestedCategory = params.get("category");
+        if (requestedSearch !== null) {
+            searchInput.value = requestedSearch;
+        }
+
+        function selectMatchingOption(selectElement, requestedValue) {
+            if (!requestedValue) return;
+
+            const matchingOption = Array.from(selectElement.options).find(
+                option =>
+                    option.value.toLowerCase() === requestedValue.toLowerCase()
+            );
+
+            if (matchingOption) {
+                selectElement.value = matchingOption.value;
+            }
+        }
+        selectMatchingOption(gradeFilter, requestedGrade);
+        selectMatchingOption(typeFilter, requestedType);
+        selectMatchingOption(categoryFilter, requestedCategory);
 
         renderOpportunities();
-    })
-    .catch(error => {
-        console.error(
-            "Error loading opportunities:",
-            error
-        );
+            })
+            .catch(error => {
+                console.error(
+                    "Error loading opportunities:",
+                    error
+                );
 
-        document.getElementById(
-            "opportunities"
-        ).textContent =
-            "Unable to load opportunities.";
-    });
+                document.getElementById(
+                    "opportunities"
+                ).textContent =
+                    "Unable to load opportunities.";
+            });
