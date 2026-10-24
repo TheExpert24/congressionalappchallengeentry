@@ -1,15 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
 :root {
-    --ink: #3d2b26;
-    --muted: #78645b;
-    --paper: #f7efe3;
-    --panel: #fffaf2;
-    --line: #dfcdbd;
-    --accent: #a64f35;
-    --accent-dark: #7f3828;
-    --warm: #e6ae3f;
-    --shadow: 0 16px 40px rgba(93, 55, 38, .11);
+    --ink: #ffffff;
+    --muted: #b8c7df;
+    --paper: #000000;
+    --panel: #080d18;
+    --line: #263b5b;
+    --accent: #58a6ff;
+    --accent-dark: #3182ce;
+    --warm: #8ec5ff;
+    --shadow: 0 16px 40px rgba(0, 0, 0, .3);
 }
 
 * {
@@ -19,13 +18,13 @@
 body {
     max-width: 1600px;
     margin: 0 auto;
-    padding: 56px 24px 72px;
+    padding: 88px 24px 72px;
     color: var(--ink);
     font-family: 'Roboto', 'Segoe UI', sans-serif;
-    background-color: var(--paper);
-    background-image: linear-gradient(rgba(247, 239, 227, .75), rgba(247, 239, 227, .75)), url('2026_09_07_0vz_Kleki.png');
-    background-repeat: repeat;
-    background-size: auto, 640px 640px;
+    background-color: #000;
+    background-image: none;
+    background-repeat: initial;
+    background-size: auto;
     font-size: 16px;
     line-height: 1.55;
 }
@@ -382,7 +381,7 @@ dialog::backdrop {
 
 @media (max-width: 560px) {
     body {
-        padding: 32px 16px 48px;
+        padding: 100px 16px 48px;
     }
 
     .filters {
@@ -762,9 +761,6 @@ dialog::backdrop {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 18px;
 }
-
-/* Free learning resources page */
-
 .learning-resources {
     display: flex;
     flex-direction: column;
@@ -797,7 +793,7 @@ dialog::backdrop {
     flex: 1;
     min-width: 0;
     padding: 20px 24px;
-    background: white;
+    background: black;
     border: 1px solid var(--line);
     box-shadow: 0 8px 24px rgba(93, 55, 38, .08);
 }
@@ -855,4 +851,122 @@ dialog::backdrop {
     .resource-info h2 {
         font-size: 1.05rem;
     }
+}
+
+html {
+    scroll-padding-top: 76px;
+}
+
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 0 5%;
+    background: rgba(0, 0, 0, 0.88);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.site-brand {
+    flex-shrink: 0;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: clamp(12px, 2vw, 26px);
+}
+
+.site-nav a {
+    color: rgba(255, 255, 255, 0.78);
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+    color: #8ec5ff;
+}
+
+@media (max-width: 850px) {
+    .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 16px;
+    }
+
+    .site-nav {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 20px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+    }
+
+    .site-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .site-nav a {
+        font-size: 12px;
+    }
+}
+.filters,
+.filters .filter-group,
+.filter-group.search-group {
+    background: #080d18;
+    color: #ffffff;
+}
+
+#searchInput,
+#categoryFilter,
+#typeFilter,
+#gradeFilter {
+    background: #080d18;
+    color: #ffffff;
+    border: 1px solid #263b5b;
+    color-scheme: dark;
+}
+
+#searchInput::placeholder {
+    color: #8fa3bf;
+}
+
+#searchInput:focus,
+#categoryFilter:focus,
+#typeFilter:focus,
+#gradeFilter:focus {
+    border-color: #58a6ff;
+    outline: 1px solid #58a6ff;
+}
+
+#categoryFilter option,
+#typeFilter option,
+#gradeFilter option {
+    background: #080d18;
+    color: #ffffff;
+}
+.site-header .site-brand,
+.site-header {
+    font-family: 'Orbitron', sans-serif;
 }
