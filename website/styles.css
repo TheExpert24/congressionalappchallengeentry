@@ -514,7 +514,7 @@ dialog::backdrop {
     min-height: 150px;
     padding: 16px 12px;
     border-radius: 14px 14px 0 0;
-    background: white;
+    background: black;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     position: relative;
     display: flex;
