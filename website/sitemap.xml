@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+       <loc>https://nextgenopportunities.me/</loc>
+       <lastmod>2026-10-24T18:05:53+00:00</lastmod>
+       <priority>1.0000</priority>
+  </url>
+  <url>
+       <loc>https://nextgenopportunities.me/opportunities.html</loc>
+       <lastmod>2026-10-25T22:48:38+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://nextgenopportunities.me/top-opportunities.html</loc>
+       <lastmod>2026-10-25T22:48:38+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://nextgenopportunities.me/starred.html</loc>
+       <lastmod>2026-10-25T22:48:38+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://nextgenopportunities.me/learning_resources.html</loc>
+       <lastmod>2026-10-25T22:48:38+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://nextgenopportunities.me/opportunities.html?search=math&amp;type=Competition</loc>
+       <lastmod>2026-10-25T22:48:38+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://nextgenopportunities.me/opportunities.html?search=programming</loc>
+       <lastmod>2026-10-25T22:48:38+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://nextgenopportunities.me/opportunities.html?type=Internship</loc>
+       <lastmod>2026-10-25T22:48:38+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://nextgenopportunities.me/opportunities.html?search=science</loc>
+       <lastmod>2026-10-25T22:48:38+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://nextgenopportunities.me/index.html</loc>
+       <lastmod>2026-10-24T18:05:53+00:00</lastmod>
+       <priority>0.6400</priority>
+  </url>
+</urlset>
